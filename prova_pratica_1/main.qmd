@@ -1,0 +1,176 @@
+---
+title: "Prova Prática 1"
+subtitle: "Modelagem Estatística"
+author: "Caio R. Saboia Monteiro 542455" #if necessary
+# date: "dd/mm/aaaa" #if necessary
+format:
+  html:
+    toc: false
+    number-sections: true
+    # toc-location: right-body
+    code-fold: false
+    # css: styles.css #if necessary
+    math: mathjax
+
+
+latex-engine: xelatex
+# header-includes:
+#   - \usepackage{amsmath}
+#   - \usepackage{amsfonts}
+#   - \usepackage{amssymb}
+
+execute:
+  cache: true
+  enabled: true
+  freeze: true #can be use 'false' or auto
+  # daemon: false #default is 300, but can use boleean values too 
+
+#python
+jupyter: python3 #can be use for Julia too
+  # or can be use something like this:
+  # kernelspec:
+  #   name: "xpython"
+  #   language: "python"
+  #   display_name: "Python 3.7 (XPython)"
+
+#R
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: ">>"
+    R.options:
+      knitr.graphics.auto_pdf: true
+
+# engine: julia # for more aplicatoins use quarto.org or :QuartoHelp Julia
+---
+
+# Análise Descritiva dos Dados
+Inicialmente, faremos uma análise prévia dos nossos dados. Provomendo uma Análise Exploraória dos Dados (AED) para entendermos melhor o nosso conjunto de dados.
+
+Carregando bibliotecas
+```{r}
+library(lmtest)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(readr)
+```
+
+Dados
+```{r}
+dados <- read_csv("~/prog/modelagem_estatistica/prova_pratica_1/day.csv")
+```
+
+
+```{r}
+head(dados)
+summary(dados)
+```
+
+```{r}
+var_numeric <- dados %>% select_if(is.numeric)
+summarize_all(var_numeric, list(mean = mean, median = median, sd = sd))
+```
+
+Aqui está alguns histogramas para vermos o comportamento de algumas variáveis.
+```{r}
+var_numeric %>% 
+  pivot_longer(cols = everything()) %>% 
+  ggplot(aes(value)) + 
+  geom_histogram(bins = 30, fill = "steelblue", color = "black") + 
+  facet_wrap(~name, scales = "free") +
+  theme_minimal() +
+  labs(title = "Distribuição das variáveis numéricas")
+```
+Boxplots.
+```{r}
+var_numeric %>% 
+  pivot_longer(cols = everything()) %>% 
+  ggplot(aes(x = name, y = value, fill = name)) + 
+  geom_boxplot(alpha = 0.7) + 
+  theme_minimal() + 
+  theme(legend.position = "none") +
+  labs(title = "Boxplot das variáveis numéricas", x = "Variáveis", y = "Valores")
+```
+
+Aqui apresentamos algumas relações, segue-as.
+
+Entre Alugueis e Temperatura;
+```{r}
+ggplot(dados, aes(x = temp, y = cnt)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", color = "red") +
+  labs(title = "Alugueis vs Temperatura", x = "Temperatura", y = "Número de Alugueis")
+```
+```{r}
+# Relacionamento entre umidade e alugueis
+ggplot(dados, aes(x = hum, y = cnt)) +
+  geom_point(alpha = 0.6, color = "blue") +
+  geom_smooth(method = "lm", color = "darkblue") +
+  labs(title = "Alugueis vs Umidade", x = "Umidade", y = "Número de Alugueis")
+```
+
+```{r}
+# Gráfico de barras para dias da semana
+ggplot(dados, aes(x = factor(weekday), y = cnt, fill = factor(weekday))) +
+  geom_bar(stat = "identity", alpha = 0.8) +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  labs(title = "Alugueis por Dia da Semana", x = "Dia da Semana", y = "Número de Alugueis")
+```
+
+```{r}
+# Gráfico de barras para estação do ano
+ggplot(dados, aes(x = factor(season), y = cnt, fill = factor(season))) +
+  geom_bar(stat = "identity", alpha = 0.8) +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  labs(title = "Alugueis por Estação do Ano", x = "Estação", y = "Número de Alugueis")
+```
+
+# Modelo de Regressão Linear
+Agora, vamos ajustar um modelo de regressão linear.
+Vamos usar este modelo:
+$\begin{equation} Y = \beta_0 + \beta_1 \cdot temp + \beta_2 \cdot hum + \beta_3 \cdot windspeed + \beta_4 \cdot holiday + \beta_5 \cdot workingday + \beta_6 \cdot season + \beta_7 \cdot weekday  \end{equation}$
+No caso, foi preferível o uso de um GLM.
+
+```{r}
+formula <- cnt ~ temp + hum + windspeed + holiday + workingday + season + weekday
+
+# Ajuste do modelo
+model <- lm(formula, data = dados)
+
+# Resumo do modelo
+summary(model)
+```
+
+# Avaliando a Qualidade do Modelo
+Resíduos:
+```{r}
+par(mfrow = c(2, 2))
+plot(model)
+
+cat("R² ajustado:", summary(model)$adj.r.squared, "\n")
+```
+Testando a normalidade dos resíduos:
+```{r}
+shapiro.test(residuals(model))
+```
+Checando a homocedasticidade:
+```{r}
+bptest(model)
+```
+
+# Interpretação dos Coeficientes Estimados ($\beta$ )
+- $\textbf{Qual é o impacto da temperatura no número de aluguéis?}$
+Bom, nota-se que em dias quentes, as pessoas tem um tendencia maior a alugar mais bicicletas. Isso pode ser devido ao fato de que caminhar não seja uma opção viável em dias quentes.
+
+- $\textbf{Como os dias de feriado afetam os alugueis em comparação com dias normais?}$
+Parece um resultado imediato, com mais pessoas em casa (feriado), podemos concluir que a demanda cai bastante. Porém, os resquicios de pessoas que alugam as bicicletas se deve à passeios, robby, ou algo do gênero.
+
+- $\textbf{Há uma relação clara entre a velocidade do vento e o número de bicicletas alugadas?}$
+Não, a velocidade do vento não aparenta ter um impacto significativo nos aluges de bicicletas.
+
+# Conclusão
+Ponto de vista logistico e empresárial: Precisa-se encontrar alguma forma de promover novos algueis em feriados. Ou apenas incentivar o uso de bicicletas, acarretaria em um aumento considerável de alugueis.
+Ponto de vista do consumidor: Se tiver quente, alugue. E se puder, fique em casa. Mas não se esqueça de andar de bicicleta é saudável.
