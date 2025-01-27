@@ -12,3 +12,6 @@ quarto preview main.qmd
 - baixe o quarto no computador.
 - e basta clonar o respositorio e baixar uma extensão no VScode para conseguir renderizar o documento **main.qmd**
 - nota: caso nao fucione com todo os caches, pastas e documentos que NÃO são o **main.qmd**, pode excluir, ele so vai renderizar tudo de novo.
+
+## Opção PDF (Arquivo cortado devido ao CTRL+P do navegador)
+- Assim, tem um arquivo .PDF, se nao incomodar tanto o fato de estar cordado, é uma boa forma de visualizar o trabalho!
