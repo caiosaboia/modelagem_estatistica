@@ -12,12 +12,19 @@ format:
     # css: styles.css #if necessary
     math: mathjax
 
+  pdf:
+    number-sections: true
+    toc: true
+    keep_tex: true
+
 
 latex-engine: xelatex
-# header-includes:
-#   - \usepackage{amsmath}
-#   - \usepackage{amsfonts}
-#   - \usepackage{amssymb}
+
+header-includes:
+  - \usepackage{amsmath}
+  - \usepackage{amsfonts}
+  - \usepackage{amssymb}
+  - \usepackage{listings}
 
 execute:
   cache: true
@@ -131,7 +138,9 @@ ggplot(dados, aes(x = factor(season), y = cnt, fill = factor(season))) +
 # Modelo de Regressão Linear
 Agora, vamos ajustar um modelo de regressão linear.
 Vamos usar este modelo:
-$\begin{equation} Y = \beta_0 + \beta_1 \cdot temp + \beta_2 \cdot hum + \beta_3 \cdot windspeed + \beta_4 \cdot holiday + \beta_5 \cdot workingday + \beta_6 \cdot season + \beta_7 \cdot weekday  \end{equation}$
+
+$$ Y = \beta_0 + \beta_1 \cdot temp + \beta_2 \cdot hum + \beta_3 \cdot windspeed + \beta_4 \cdot holiday + \beta_5 \cdot workingday + \beta_6 \cdot season + \beta_7 \cdot weekday  $$
+
 No caso, foi preferível o uso de um GLM.
 
 ```{r}

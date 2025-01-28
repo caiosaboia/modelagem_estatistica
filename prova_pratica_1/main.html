@@ -68,6 +68,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="main_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="main_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="main_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+</head><body>\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{listings}
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -99,12 +103,13 @@ window.Quarto = {
 };
 </script>
 
-</head>
 
-<body class="fullcontent">
+
+
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="main.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -318,7 +323,9 @@ window.Quarto = {
 </section>
 <section id="modelo-de-regressão-linear" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Modelo de Regressão Linear</h1>
-<p>Agora, vamos ajustar um modelo de regressão linear. Vamos usar este modelo: <span class="math inline">\(\begin{equation} Y = \beta_0 + \beta_1 \cdot temp + \beta_2 \cdot hum + \beta_3 \cdot windspeed + \beta_4 \cdot holiday + \beta_5 \cdot workingday + \beta_6 \cdot season + \beta_7 \cdot weekday  \end{equation}\)</span> No caso, foi preferível o uso de um GLM.</p>
+<p>Agora, vamos ajustar um modelo de regressão linear. Vamos usar este modelo:</p>
+<p><span class="math display">\[ Y = \beta_0 + \beta_1 \cdot temp + \beta_2 \cdot hum + \beta_3 \cdot windspeed + \beta_4 \cdot holiday + \beta_5 \cdot workingday + \beta_6 \cdot season + \beta_7 \cdot weekday  \]</span></p>
+<p>No caso, foi preferível o uso de um GLM.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>formula <span class="ot">&lt;-</span> cnt <span class="sc">~</span> temp <span class="sc">+</span> hum <span class="sc">+</span> windspeed <span class="sc">+</span> holiday <span class="sc">+</span> workingday <span class="sc">+</span> season <span class="sc">+</span> weekday</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
