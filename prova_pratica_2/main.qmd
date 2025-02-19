@@ -1,0 +1,125 @@
+---
+title: "Trabalho Final"
+# subtitle: " subtitulo"
+author: "Caio R. Saboia Monteiro"
+# date: "dd/mm/aaaa" #if necessary
+format:
+  html:
+    toc: false
+    number-sections: true
+    # toc-location: right-body
+    code-fold: false
+    # css: styles.css #if necessary
+    math: mathjax
+
+  pdf:
+    number-sections: true
+    toc: true
+    keep_tex: true
+
+latex-engine: xelatex
+
+# header-includes:
+#   - \usepackage{amsmath}
+#   - \usepackage{amsfonts}
+#   - \usepackage{amssymb}
+#   - \usepackage{listings}
+
+execute:
+  cache: true
+  enabled: true
+  freeze: true #can be use 'false' or auto
+  # daemon: false #default is 300, but can use boleean values too 
+
+#python
+jupyter: python3 #can be use for Julia too
+  # or can be use something like this:
+  # kernelspec:
+  #   name: "xpython"
+  #   language: "python"
+  #   display_name: "Python 3.7 (XPython)"
+
+#R
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: ">"
+    R.options:
+      knitr.graphics.auto_pdf: true
+
+# engine: julia # for more aplicatoins use quarto.org or :QuartoHelp Julia
+---
+
+
+```{r}
+library(languageserver)
+library(lmtest)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(readr)
+```
+
+
+```{r}
+airquality_data <- read_csv("data/airquality.csv")
+instagram_data <- read_csv("data/instagram.csv")
+metanalise_data <- read_csv("data/metanalise.csv")
+sleep_data <- read_csv("data/sleep.csv")
+```
+
+
+```{r}
+head(airquality_data)
+
+head(sleep_data)
+
+head(metanalise_data)
+
+head(instagram_data)
+
+
+```
+
+# Qualidade do Ar
+
+
+```{r}
+# Criar um modelo para prever Ozone usando as observações não nulas
+modelo_imputacao <- lm(Ozone ~ Solar.R + Wind + Temp, data = airquality_data, na.action = na.exclude)
+
+# Prever os valores ausentes de Ozone
+ozone_pred <- predict(modelo_imputacao, newdata = airquality_data)
+summary(ozone_pred)
+
+# Substituir apenas os valores NA em Ozone com os valores previstos
+airquality_data_new <-airquality_data$Ozone[is.na(airquality_data$Ozone)] <- ozone_pred[is.na(airquality_data$Ozone)]
+
+
+head(airquality_data_new)
+```
+
+
+# Qualidade do Sono
+
+
+
+
+
+
+
+
+# Metanalise
+
+
+
+
+
+
+
+
+# Instagram
+
+
+
+
