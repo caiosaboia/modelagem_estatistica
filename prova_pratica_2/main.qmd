@@ -1,14 +1,16 @@
 ---
 title: "Trabalho Final"
-# subtitle: " subtitulo"
-author: "Caio R. Saboia Monteiro"
+subtitle: "Modelagem Estatística"
+author: 
+  - name: Caio Rubem Saboia Monteiro
+  - name: Rogerio Ferreira Rodrigues Junior
 # date: "dd/mm/aaaa" #if necessary
 format:
   html:
-    toc: false
-    number-sections: true
+    toc: TRUE
+    number-sections: TRUE
     # toc-location: right-body
-    code-fold: false
+    code-fold: TRUE
     # css: styles.css #if necessary
     math: mathjax
 
@@ -43,60 +45,33 @@ jupyter: python3 #can be use for Julia too
 knitr:
   opts_chunk:
     collapse: true
-    comment: ">"
+    comment: " >>"
     R.options:
       knitr.graphics.auto_pdf: true
 
 # engine: julia # for more aplicatoins use quarto.org or :QuartoHelp Julia
 ---
 
-
 ```{r}
-library(languageserver)
 library(lmtest)
 library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(readr)
+library(stringr)
 ```
 
+# Datas-set's
 
 ```{r}
 airquality_data <- read_csv("data/airquality.csv")
-instagram_data <- read_csv("data/instagram.csv")
 metanalise_data <- read_csv("data/metanalise.csv")
 sleep_data <- read_csv("data/sleep.csv")
 ```
 
 
-```{r}
-head(airquality_data)
-
-head(sleep_data)
-
-head(metanalise_data)
-
-head(instagram_data)
-
-
-```
-
 # Qualidade do Ar
-
-
 ```{r}
-# Criar um modelo para prever Ozone usando as observações não nulas
-modelo_imputacao <- lm(Ozone ~ Solar.R + Wind + Temp, data = airquality_data, na.action = na.exclude)
-
-# Prever os valores ausentes de Ozone
-ozone_pred <- predict(modelo_imputacao, newdata = airquality_data)
-summary(ozone_pred)
-
-# Substituir apenas os valores NA em Ozone com os valores previstos
-airquality_data_new <-airquality_data$Ozone[is.na(airquality_data$Ozone)] <- ozone_pred[is.na(airquality_data$Ozone)]
-
-
-head(airquality_data_new)
 ```
 
 
@@ -111,8 +86,15 @@ head(airquality_data_new)
 
 # Metanalise
 
+## Codigo em python para tratamento
+```{python}
+import pandas as pd
+metanalise = pd.read_csv("data/metanalise.csv")
+# Apaga a coluna de índices
+metanalise = metanalise.drop("Unnamed: 0", axis=1)
+metanalise.info()
 
-
+```
 
 
 
@@ -120,6 +102,82 @@ head(airquality_data_new)
 
 # Instagram
 
+```{r}
+instagram_data <- read_csv("data/instagram.csv")
+
+
+convert_to_hours <- function(time_str) {
+  time_str <- tolower(time_str)  # Converter para minúsculas
+  horas <- as.numeric(str_extract(time_str, "\\d+(?= h)"))  # Pegar as horas
+  minutos <- as.numeric(str_extract(time_str, "\\d+(?= min)"))  # Pegar os minutos
+  
+  # Substituir NA por 0 onde necessário
+  horas[is.na(horas)] <- 0
+  minutos[is.na(minutos)] <- 0
+  
+  # Converter para horas
+  total_horas <- horas + (minutos / 60)
+  return(total_horas)
+}
+
+
+dias_da_semana <- c("Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sabado", "Domingo")
+
+instagram_data_2 <- instagram_data %>%
+  mutate(across(all_of(dias_da_semana), convert_to_hours))
 
 
 
+```
+
+
+```{r}
+glimpse(instagram_data_2)
+
+
+
+
+
+head(instagram_data_2)
+
+```
+
+```{r}
+instagram_long <- instagram_data_2 %>%
+  pivot_longer(cols = c(Segunda:Domingo), names_to = "Dia", values_to = "Tempo")
+
+# Criar histograma separado por dia
+ggplot(instagram_long, aes(x = Tempo, fill = Dia)) +
+  geom_histogram(bins = 10, color = "black", alpha = 0.7) +
+  facet_wrap(~ Dia) +  # Cria um gráfico separado para cada dia
+  labs(title = "Distribuição do Tempo de Uso do Instagram por Dia",
+       x = "Tempo (horas)", y = "Frequência") +
+  theme_minimal()
+```
+
+
+```{r}
+# Transformar os dados para o formato longo
+instagram_long <- tidyr::pivot_longer(instagram_data_2, cols = all_of(dias_da_semana),
+                                      names_to = "Dia", values_to = "Tempo")
+
+# Criar um boxplot para ver a distribuição do uso ao longo da semana
+ggplot(instagram_long, aes(x = Dia, y = Tempo, fill = Dia)) +
+  geom_boxplot() +
+  labs(title = "Tempo de Uso do Instagram por Dia da Semana",
+       x = "Dia da Semana", y = "Tempo (horas)") +
+  theme_minimal()
+```
+
+
+
+```{r}
+instagram_long %>%
+  group_by(Dia) %>%
+  summarise(Media_Tempo = mean(Tempo, na.rm = TRUE)) %>%
+  ggplot(aes(x = Dia, y = Media_Tempo, fill = Dia)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Média do Tempo de Uso do Instagram por Dia",
+       x = "Dia da Semana", y = "Tempo médio (horas)") +
+  theme_minimal()
+```

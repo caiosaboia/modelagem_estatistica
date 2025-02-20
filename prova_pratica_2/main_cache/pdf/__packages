@@ -4,5 +4,4 @@ ggplot2
 dplyr
 tidyr
 readr
-languageserver
 stringr
