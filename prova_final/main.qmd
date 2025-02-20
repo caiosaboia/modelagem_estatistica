@@ -10,7 +10,7 @@ format:
     toc: TRUE
     number-sections: TRUE
     # toc-location: right-body
-    code-fold: TRUE
+    code-fold: FALSE
     # css: styles.css #if necessary
     math: mathjax
 
@@ -31,6 +31,7 @@ execute:
   cache: true
   enabled: true
   freeze: true #can be use 'false' or auto
+  echo: true
   # daemon: false #default is 300, but can use boleean values too 
 
 #python
@@ -54,6 +55,7 @@ knitr:
 
 ```{r}
 library(lmtest)
+library(lme4)
 library(ggplot2)
 library(dplyr)
 library(tidyr)
@@ -61,28 +63,115 @@ library(readr)
 library(stringr)
 ```
 
-# Datas-set's
-
-```{r}
-airquality_data <- read_csv("data/airquality.csv")
-metanalise_data <- read_csv("data/metanalise.csv")
-sleep_data <- read_csv("data/sleep.csv")
-```
-
 
 # Qualidade do Ar
+
+## Estudo sobre a base de dados
 ```{r}
+airquality_data <- read.csv("data/airquality.csv")
+head(airquality_data)
+```
+```{r}
+summary(airquality)
+```
+```{r}
+# Ajustar o tamanho do gráfico na célula do notebook
+options(repr.plot.width = 12, repr.plot.height = 8)
+
+# Gráfico de relação entre as variáveis
+pairs(airquality, main = "Gráfico de Relação entre Variáveis",
+      lower.panel = panel.smooth, upper.panel = NULL)
+```
+```{r}
+#| panel: full
+# Ajustar o tamanho do gráfico na célula do notebook
+options(repr.plot.width = 8, repr.plot.height = 8)
+
+# Aplicação de um modelo de regressão linear
+model_airquality = lm(Ozone ~., data=airquality)
+
+# Gráficos de resíduos
+par(mfrow = c(2, 2))
+plot(model_airquality)
+
+# Coeficiente de Determinação (R²) com uma mensagem explicativa
+cat("O coeficiente de determinação (R²) do modelo é:", round(summary(model_airquality)$r.squared, 4), "\n")
+
+summary(model_airquality)
 ```
 
+```{r}
+bptest(model_airquality)
+```
+
+```{r}
+# Ajustar o tamanho do gráfico na célula do notebook
+options(repr.plot.width = 8, repr.plot.height = 8)
+
+airquality_mod <- airquality%>%mutate(Month=factor(Month))
+# airquality_mod <- airquality_mod%>%mutate(Day=factor(Day))
+airquality_mod <- airquality_mod%>%drop_na
+# Aplicação de um novo modelo de regressão linear
+model_airquality = lm(log(Ozone) ~., data=airquality_mod)
+
+# Gráficos de resíduos
+par(mfrow = c(2, 2))
+plot(model_airquality)
+
+# Coeficiente de Determinação (R²) com uma mensagem explicativa
+cat("O coeficiente de determinação (R²) do modelo é:", round(summary(model_airquality)$r.squared, 4), "\n")
+
+summary(model_airquality)
+```
+
+```{r}
+bptest(model_airquality)
+```
 
 # Qualidade do Sono
 
 
+```{r}
+sleep_data <- read_csv("data/sleep.csv")
+head(sleep_data)
+```
 
 
+```{r}
+summary(sleep_data)
+```
 
 
+```{r}
+# Ajustar o tamanho do gráfico na célula do notebook
+options(repr.plot.width = 12, repr.plot.height = 8)
 
+# Gráfico de relação entre as variáveis
+pairs(sleep_data, main = "Gráfico de Relação entre Variáveis",
+      lower.panel = panel.smooth, upper.panel = NULL)
+```
+
+
+```{r}
+#| panel: full
+# Ajustar o tamanho do gráfico na célula do notebook
+options(repr.plot.width = 8, repr.plot.height = 8)
+
+# airquality_mod <- airquality_mod%>%mutate(Day=factor(Day))
+sleepstudy_mod <- sleep_data%>%drop_na
+
+# Aplicação de um novo modelo de regressão linear
+model_sleepstudy = lmer(Reaction ~ factor(Days) + (1|Subject),data=sleep_data)
+
+# Gráficos de resíduos
+par(mfrow = c(2, 2))
+plot(model_sleepstudy)
+
+# Coeficiente de Determinação (R²) com uma mensagem explicativa
+#cat("O coeficiente de determinação (R²) do modelo é:", round(summary(model_sleepstudy)$r.squared, 4), "\n")
+
+summary(model_sleepstudy)
+```
 
 # Metanalise
 
@@ -96,7 +185,79 @@ metanalise.info()
 
 ```
 
+```{python}
+cluster = metanalise["cluster"]
 
+names = []
+years = []
+"""
+Para cada publicação na coluna (cluster):
+- Quebra o texto para indentificar o autor e o ano
+- Motivo_1: Buscar análise de um determinado autor pública mais viés de pesquisa.
+- Motivo_2: Teve algum ano em que houve um boom de publicações com viés?
+"""
+for row in metanalise["cluster"]:
+    name = ""
+    year = ""
+    for value_ in row.split(" "):
+        # verifica se o valor é numérico.
+        if value_.isnumeric():
+           year = int(value_)
+        # verifica se é numérico com letra.
+        elif value_[:-1].isnumeric() and len(value_) == 5:
+           year = int(value_[:-1])
+        else:
+           name += value_ + " "
+    names.append(name)
+    years.append(year)
+
+# Salva os dados tratados em uma nova coluna
+metanalise["autors"] = names
+metanalise["pyears"] = years
+# Elimina a coluna redundante
+metanalise = metanalise.drop("cluster", axis=1)
+
+```
+
+```{python}
+# Gera um novo arquivo com os dados modificados
+metanalise.to_csv("metanalise_mod.csv", index=False)
+```
+
+```{python}
+metanalise.hist()
+```
+
+## Analise dos dados no R
+```{r}
+library(tidyverse)
+metanalise = read_csv("metanalise_mod.csv")
+metanalise = metanalise %>% mutate(autors = factor(autors))
+metanalise = metanalise %>% mutate(pyears = factor(pyears))
+head(metanalise)
+summary(metanalise)
+```
+
+```{r}
+# Ajustar o tamanho do gráfico na célula do notebook
+options(repr.plot.width = 8, repr.plot.height = 8)
+
+# Aplicação de um modelo de regressão linear
+model_metanalise = lm(yi ~  ., data=metanalise)
+
+# Gráficos de resíduos
+par(mfrow = c(2, 2))
+plot(model_metanalise)
+
+# Coeficiente de Determinação (R²) com uma mensagem explicativa
+cat("O coeficiente de determinação (R²) do modelo é:", round(summary(model_metanalise)$r.squared, 4), "\n")
+
+summary(model_metanalise)
+```
+
+```{r}
+bptest(model_metanalise)
+```
 
 
 
@@ -133,11 +294,6 @@ instagram_data_2 <- instagram_data %>%
 
 ```{r}
 glimpse(instagram_data_2)
-
-
-
-
-
 head(instagram_data_2)
 
 ```

@@ -6,3 +6,10 @@ tidyr
 readr
 languageserver
 stringr
+tidyverse
+tibble
+purrr
+forcats
+lubridate
+Matrix
+lme4

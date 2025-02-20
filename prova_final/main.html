@@ -110,16 +110,19 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#datas-sets" id="toc-datas-sets" class="nav-link active" data-scroll-target="#datas-sets"><span class="header-section-number">1</span> Datas-set’s</a></li>
-  <li><a href="#qualidade-do-ar" id="toc-qualidade-do-ar" class="nav-link" data-scroll-target="#qualidade-do-ar"><span class="header-section-number">2</span> Qualidade do Ar</a></li>
-  <li><a href="#qualidade-do-sono" id="toc-qualidade-do-sono" class="nav-link" data-scroll-target="#qualidade-do-sono"><span class="header-section-number">3</span> Qualidade do Sono</a></li>
-  <li><a href="#metanalise" id="toc-metanalise" class="nav-link" data-scroll-target="#metanalise"><span class="header-section-number">4</span> Metanalise</a>
+  <li><a href="#qualidade-do-ar" id="toc-qualidade-do-ar" class="nav-link active" data-scroll-target="#qualidade-do-ar"><span class="header-section-number">1</span> Qualidade do Ar</a>
   <ul class="collapse">
-  <li><a href="#codigo-em-python-para-tratamento" id="toc-codigo-em-python-para-tratamento" class="nav-link" data-scroll-target="#codigo-em-python-para-tratamento"><span class="header-section-number">4.1</span> Codigo em python para tratamento</a></li>
+  <li><a href="#estudo-sobre-a-base-de-dados" id="toc-estudo-sobre-a-base-de-dados" class="nav-link" data-scroll-target="#estudo-sobre-a-base-de-dados"><span class="header-section-number">1.1</span> Estudo sobre a base de dados</a></li>
   </ul></li>
-  <li><a href="#instagram" id="toc-instagram" class="nav-link" data-scroll-target="#instagram"><span class="header-section-number">5</span> Instagram</a></li>
+  <li><a href="#qualidade-do-sono" id="toc-qualidade-do-sono" class="nav-link" data-scroll-target="#qualidade-do-sono"><span class="header-section-number">2</span> Qualidade do Sono</a></li>
+  <li><a href="#metanalise" id="toc-metanalise" class="nav-link" data-scroll-target="#metanalise"><span class="header-section-number">3</span> Metanalise</a>
+  <ul class="collapse">
+  <li><a href="#codigo-em-python-para-tratamento" id="toc-codigo-em-python-para-tratamento" class="nav-link" data-scroll-target="#codigo-em-python-para-tratamento"><span class="header-section-number">3.1</span> Codigo em python para tratamento</a></li>
+  <li><a href="#analise-dos-dados-no-r" id="toc-analise-dos-dados-no-r" class="nav-link" data-scroll-target="#analise-dos-dados-no-r"><span class="header-section-number">3.2</span> Analise dos dados no R</a></li>
+  </ul></li>
+  <li><a href="#instagram" id="toc-instagram" class="nav-link" data-scroll-target="#instagram"><span class="header-section-number">4</span> Instagram</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="..\main.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="main.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
 <main class="content" id="quarto-document-content">
 
@@ -151,177 +154,137 @@ window.Quarto = {
 
 
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Carregando pacotes exigidos<span class="sc">:</span> Matrix</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Anexando pacote<span class="sc">:</span> <span class="st">'Matrix'</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Os seguintes objetos são mascarados por <span class="st">'package:tidyr'</span><span class="sc">:</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span>     expand, pack, unpack</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="datas-sets" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Datas-set’s</h1>
+<section id="qualidade-do-ar" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Qualidade do Ar</h1>
+<section id="estudo-sobre-a-base-de-dados" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="estudo-sobre-a-base-de-dados"><span class="header-section-number">1.1</span> Estudo sobre a base de dados</h2>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>airquality_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/airquality.csv"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Rows<span class="sc">:</span> <span class="dv">153</span> Columns<span class="sc">:</span> <span class="dv">7</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> ── Column specification ────────────────────────────────────────────────────────</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Delimiter<span class="sc">:</span> <span class="st">","</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">dbl</span> (<span class="dv">7</span>)<span class="sc">:</span> rownames, Ozone, Solar.R, Wind, Temp, Month, Day</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> ℹ Use <span class="st">`</span><span class="at">spec()</span><span class="st">`</span> to retrieve the full column specification <span class="cf">for</span> this data.</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> ℹ Specify the column types or set <span class="st">`</span><span class="at">show_col_types = FALSE</span><span class="st">`</span> to quiet this message.</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>metanalise_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/metanalise.csv"</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> New names<span class="sc">:</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Rows<span class="sc">:</span> <span class="dv">100</span> Columns<span class="sc">:</span> <span class="dv">5</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> ── Column specification</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> ──────────────────────────────────────────────────────── Delimiter<span class="sc">:</span> <span class="st">","</span> chr</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> (<span class="dv">1</span>)<span class="sc">:</span> cluster <span class="fu">dbl</span> (<span class="dv">3</span>)<span class="sc">:</span> ...<span class="dv">1</span>, yi, vi <span class="fu">lgl</span> (<span class="dv">1</span>)<span class="sc">:</span> randomized</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> ℹ Use <span class="st">`</span><span class="at">spec()</span><span class="st">`</span> to retrieve the full column specification <span class="cf">for</span> this data. ℹ</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Specify the column types or set <span class="st">`</span><span class="at">show_col_types = FALSE</span><span class="st">`</span> to quiet this message.</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> • <span class="st">``</span> <span class="ot">-&gt;</span> <span class="st">`</span><span class="at">...1</span><span class="st">`</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>sleep_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/sleep.csv"</span>)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> New names<span class="sc">:</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Rows<span class="sc">:</span> <span class="dv">180</span> Columns<span class="sc">:</span> <span class="dv">4</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> ── Column specification</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> ──────────────────────────────────────────────────────── Delimiter<span class="sc">:</span> <span class="st">","</span> dbl</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> (<span class="dv">4</span>)<span class="sc">:</span> ...<span class="dv">1</span>, Reaction, Days, Subject</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> ℹ Use <span class="st">`</span><span class="at">spec()</span><span class="st">`</span> to retrieve the full column specification <span class="cf">for</span> this data. ℹ</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Specify the column types or set <span class="st">`</span><span class="at">show_col_types = FALSE</span><span class="st">`</span> to quiet this message.</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> • <span class="st">``</span> <span class="ot">-&gt;</span> <span class="st">`</span><span class="at">...1</span><span class="st">`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-</section>
-<section id="qualidade-do-ar" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Qualidade do Ar</h1>
-</section>
-<section id="qualidade-do-sono" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Qualidade do Sono</h1>
-</section>
-<section id="metanalise" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Metanalise</h1>
-<section id="codigo-em-python-para-tratamento" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="codigo-em-python-para-tratamento"><span class="header-section-number">4.1</span> Codigo em python para tratamento</h2>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>metanalise <span class="op">=</span> pd.read_csv(<span class="st">"data/metanalise.csv"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Apaga a coluna de índices</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>metanalise <span class="op">=</span> metanalise.drop(<span class="st">"Unnamed: 0"</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>metanalise.info()</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span> <span class="op">&lt;</span><span class="kw">class</span> <span class="st">'pandas.core.frame.DataFrame'</span><span class="op">&gt;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span> RangeIndex: <span class="dv">100</span> entries, <span class="dv">0</span> to <span class="dv">99</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span> Data columns (total <span class="dv">4</span> columns):</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span>  <span class="co">#   Column      Non-Null Count  Dtype  </span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span> <span class="op">---</span>  <span class="op">------</span>      <span class="op">--------------</span>  <span class="op">-----</span>  </span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span>  <span class="dv">0</span>   yi          <span class="dv">100</span> non<span class="op">-</span>null    float64</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span>  <span class="dv">1</span>   vi          <span class="dv">100</span> non<span class="op">-</span>null    float64</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span>  <span class="dv">2</span>   cluster     <span class="dv">100</span> non<span class="op">-</span>null    <span class="bu">object</span> </span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span>  <span class="dv">3</span>   randomized  <span class="dv">100</span> non<span class="op">-</span>null    <span class="bu">bool</span>   </span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span> dtypes: <span class="bu">bool</span>(<span class="dv">1</span>), float64(<span class="dv">2</span>), <span class="bu">object</span>(<span class="dv">1</span>)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span> memory usage: <span class="fl">2.6</span><span class="op">+</span> KB</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-</section>
-</section>
-<section id="instagram" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Instagram</h1>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>instagram_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/instagram.csv"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Rows<span class="sc">:</span> <span class="dv">15</span> Columns<span class="sc">:</span> <span class="dv">18</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> ── Column specification ────────────────────────────────────────────────────────</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Delimiter<span class="sc">:</span> <span class="st">","</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">chr</span> (<span class="dv">18</span>)<span class="sc">:</span> Segunda, Terca, Quarta, Quinta, Sexta, Sabado, Domingo, idade, gen...</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> ℹ Use <span class="st">`</span><span class="at">spec()</span><span class="st">`</span> to retrieve the full column specification <span class="cf">for</span> this data.</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> ℹ Specify the column types or set <span class="st">`</span><span class="at">show_col_types = FALSE</span><span class="st">`</span> to quiet this message.</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>convert_to_hours <span class="ot">&lt;-</span> <span class="cf">function</span>(time_str) {</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  time_str <span class="ot">&lt;-</span> <span class="fu">tolower</span>(time_str)  <span class="co"># Converter para minúsculas</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  horas <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">str_extract</span>(time_str, <span class="st">"</span><span class="sc">\\</span><span class="st">d+(?= h)"</span>))  <span class="co"># Pegar as horas</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  minutos <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">str_extract</span>(time_str, <span class="st">"</span><span class="sc">\\</span><span class="st">d+(?= min)"</span>))  <span class="co"># Pegar os minutos</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Substituir NA por 0 onde necessário</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  horas[<span class="fu">is.na</span>(horas)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  minutos[<span class="fu">is.na</span>(minutos)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Converter para horas</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  total_horas <span class="ot">&lt;-</span> horas <span class="sc">+</span> (minutos <span class="sc">/</span> <span class="dv">60</span>)</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(total_horas)</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>dias_da_semana <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Segunda"</span>, <span class="st">"Terca"</span>, <span class="st">"Quarta"</span>, <span class="st">"Quinta"</span>, <span class="st">"Sexta"</span>, <span class="st">"Sabado"</span>, <span class="st">"Domingo"</span>)</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>instagram_data_2 <span class="ot">&lt;-</span> instagram_data <span class="sc">%&gt;%</span></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">all_of</span>(dias_da_semana), convert_to_hours))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>airquality_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/airquality.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality_data)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>   rownames Ozone Solar.R Wind Temp Month Day</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">1</span>        <span class="dv">1</span>    <span class="dv">41</span>     <span class="dv">190</span>  <span class="fl">7.4</span>   <span class="dv">67</span>     <span class="dv">5</span>   <span class="dv">1</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2</span>        <span class="dv">2</span>    <span class="dv">36</span>     <span class="dv">118</span>  <span class="fl">8.0</span>   <span class="dv">72</span>     <span class="dv">5</span>   <span class="dv">2</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">3</span>        <span class="dv">3</span>    <span class="dv">12</span>     <span class="dv">149</span> <span class="fl">12.6</span>   <span class="dv">74</span>     <span class="dv">5</span>   <span class="dv">3</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">4</span>        <span class="dv">4</span>    <span class="dv">18</span>     <span class="dv">313</span> <span class="fl">11.5</span>   <span class="dv">62</span>     <span class="dv">5</span>   <span class="dv">4</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">5</span>        <span class="dv">5</span>    <span class="cn">NA</span>      <span class="cn">NA</span> <span class="fl">14.3</span>   <span class="dv">56</span>     <span class="dv">5</span>   <span class="dv">5</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">6</span>        <span class="dv">6</span>    <span class="dv">28</span>      <span class="cn">NA</span> <span class="fl">14.9</span>   <span class="dv">66</span>     <span class="dv">5</span>   <span class="dv">6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(instagram_data_2)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Rows<span class="sc">:</span> <span class="dv">15</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Columns<span class="sc">:</span> <span class="dv">18</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> Segunda           <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="fl">0.9333333</span>, <span class="fl">1.3666667</span>, <span class="fl">0.0000000</span>, <span class="fl">0.0000000</span>, <span class="fl">0.000000</span>…</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> Terca             <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="fl">1.2666667</span>, <span class="fl">1.4500000</span>, <span class="fl">0.0000000</span>, <span class="fl">0.0000000</span>, <span class="fl">0.000000</span>…</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> Quarta            <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="fl">0.7833333</span>, <span class="fl">0.0000000</span>, <span class="fl">0.0000000</span>, <span class="fl">0.0000000</span>, <span class="fl">0.000000</span>…</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> Quinta            <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="fl">1.3666667</span>, <span class="fl">1.2166667</span>, <span class="fl">0.0000000</span>, <span class="fl">0.0000000</span>, <span class="fl">0.000000</span>…</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> Sexta             <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="fl">0.3666667</span>, <span class="fl">0.6333333</span>, <span class="fl">0.0000000</span>, <span class="fl">0.0000000</span>, <span class="fl">0.000000</span>…</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> Sabado            <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="fl">0.91666667</span>, <span class="fl">1.83333333</span>, <span class="fl">0.00000000</span>, <span class="fl">0.00000000</span>, <span class="fl">0.00</span>…</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> Domingo           <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="fl">0.63333333</span>, <span class="fl">0.53333333</span>, <span class="fl">0.00000000</span>, <span class="fl">0.00000000</span>, <span class="fl">0.00</span>…</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> idade             <span class="sc">&lt;</span>chr<span class="sc">&gt;</span> <span class="st">"24"</span>, <span class="st">"23"</span>, <span class="st">"22"</span>, <span class="st">"21"</span>, <span class="st">"22"</span>, <span class="st">"23"</span>, <span class="st">"24"</span>, <span class="st">"25"</span>, <span class="st">"22"</span>…</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> genero            <span class="sc">&lt;</span>chr<span class="sc">&gt;</span> <span class="st">"Masculino"</span>, <span class="st">"Hétero"</span>, <span class="st">"Masculino"</span>, <span class="st">"M"</span>, <span class="st">"Masculino"</span>…</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> trabalha          <span class="sc">&lt;</span>chr<span class="sc">&gt;</span> <span class="st">"Sim"</span>, <span class="st">"Sim"</span>, <span class="st">"Sim"</span>, <span class="st">"Sim"</span>, <span class="st">"Não"</span>, <span class="st">"Não"</span>, <span class="st">"Sim"</span>, <span class="st">"Nã…</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="st"> &gt;&gt; $ trabalhaInstagram &lt;chr&gt; "</span>Não<span class="st">", "</span>Não<span class="st">", "</span>Não<span class="st">", "</span>Não<span class="st">", "</span>Não<span class="st">", "</span>Não<span class="st">", "</span>Não<span class="st">", "</span>Nã…</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> videosLongos      <span class="sc">&lt;</span>chr<span class="sc">&gt;</span> <span class="st">"Sim"</span>, <span class="st">"Sim"</span>, <span class="st">"Sim"</span>, <span class="st">"Sim"</span>, <span class="st">"Sim"</span>, <span class="st">"Sim"</span>, <span class="st">"Não"</span>, <span class="st">"Si…</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="st"> &gt;&gt; $ moraSo            &lt;chr&gt; "</span>Não<span class="st">", "</span>Sim<span class="st">", "</span>Não<span class="st">", "</span>Não<span class="st">", "</span>Não<span class="st">", "</span>Não<span class="st">", "</span>Não<span class="st">", "</span>Nã…</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> Semestre          <span class="sc">&lt;</span>chr<span class="sc">&gt;</span> <span class="st">"5+"</span>, <span class="st">"5+"</span>, <span class="st">"5+"</span>, <span class="st">"5+"</span>, <span class="st">"5+"</span>, <span class="st">"5+"</span>, <span class="st">"5+"</span>, <span class="st">"5+"</span>, <span class="st">"5+"</span>…</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> streamingDiario   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span> <span class="st">"Sim"</span>, <span class="st">"Não"</span>, <span class="st">"Não"</span>, <span class="st">"Não"</span>, <span class="st">"Sim"</span>, <span class="st">"Sim"</span>, <span class="st">"Não"</span>, <span class="st">"Nã…</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="st"> &gt;&gt; $ acesso            &lt;chr&gt; "</span><span class="dv">4</span>g e outros diferentes meios de wi<span class="sc">-</span>fi.<span class="st">", "</span><span class="dv">4</span>g e outr…</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> translado         <span class="sc">&lt;</span>chr<span class="sc">&gt;</span> <span class="st">"40 minutos"</span>, <span class="st">"40 min"</span>, <span class="st">"1h 40min"</span>, <span class="st">"2 horas"</span>, <span class="st">"1 ho…</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="st"> &gt;&gt; $ transporte        &lt;chr&gt; "</span>Majoritariamente privado<span class="st">", "</span>Majoritariamente privad…</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(instagram_data_2)</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="co"># A tibble: 6 × 18</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span>   Segunda Terca Quarta Quinta Sexta Sabado Domingo idade genero    trabalha</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>     <span class="er">&lt;</span>chr<span class="sc">&gt;</span>   </span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> <span class="dv">1</span>   <span class="fl">0.933</span>  <span class="fl">1.27</span>  <span class="fl">0.783</span>   <span class="fl">1.37</span> <span class="fl">0.367</span>  <span class="fl">0.917</span>   <span class="fl">0.633</span> <span class="dv">24</span>    Masculino Sim     </span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2</span>   <span class="fl">1.37</span>   <span class="fl">1.45</span>  <span class="dv">0</span>       <span class="fl">1.22</span> <span class="fl">0.633</span>  <span class="fl">1.83</span>    <span class="fl">0.533</span> <span class="dv">23</span>    Hétero    Sim     </span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">3</span>   <span class="dv">0</span>      <span class="dv">0</span>     <span class="dv">0</span>       <span class="dv">0</span>    <span class="dv">0</span>      <span class="dv">0</span>       <span class="dv">0</span>     <span class="dv">22</span>    Masculino Sim     </span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">4</span>   <span class="dv">0</span>      <span class="dv">0</span>     <span class="dv">0</span>       <span class="dv">0</span>    <span class="dv">0</span>      <span class="dv">0</span>       <span class="dv">0</span>     <span class="dv">21</span>    M         Sim     </span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">5</span>   <span class="dv">0</span>      <span class="dv">0</span>     <span class="dv">0</span>       <span class="dv">0</span>    <span class="dv">0</span>      <span class="dv">0</span>       <span class="dv">0</span>     <span class="dv">22</span>    Masculino Não     </span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">6</span>   <span class="fl">3.62</span>   <span class="dv">2</span>     <span class="fl">1.5</span>     <span class="fl">3.52</span> <span class="fl">3.18</span>   <span class="fl">4.47</span>    <span class="fl">4.97</span>  <span class="dv">23</span>    masculino Não     </span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="co"># ℹ 8 more variables: trabalhaInstagram &lt;chr&gt;, videosLongos &lt;chr&gt;,</span></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> <span class="co">#   moraSo &lt;chr&gt;, Semestre &lt;chr&gt;, streamingDiario &lt;chr&gt;, acesso &lt;chr&gt;,</span></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> <span class="co">#   translado &lt;chr&gt;, transporte &lt;chr&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(airquality)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>      Ozone           Solar.R           Wind             Temp      </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  Min.   <span class="sc">:</span>  <span class="fl">1.00</span>   Min.   <span class="sc">:</span>  <span class="fl">7.0</span>   Min.   <span class="sc">:</span> <span class="fl">1.700</span>   Min.   <span class="sc">:</span><span class="fl">56.00</span>  </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">18.00</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">115.8</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">7.400</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">72.00</span>  </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  Median <span class="sc">:</span> <span class="fl">31.50</span>   Median <span class="sc">:</span><span class="fl">205.0</span>   Median <span class="sc">:</span> <span class="fl">9.700</span>   Median <span class="sc">:</span><span class="fl">79.00</span>  </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  Mean   <span class="sc">:</span> <span class="fl">42.13</span>   Mean   <span class="sc">:</span><span class="fl">185.9</span>   Mean   <span class="sc">:</span> <span class="fl">9.958</span>   Mean   <span class="sc">:</span><span class="fl">77.88</span>  </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  <span class="dv">3</span>rd Qu.<span class="sc">:</span> <span class="fl">63.25</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">258.8</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">11.500</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">85.00</span>  </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  Max.   <span class="sc">:</span><span class="fl">168.00</span>   Max.   <span class="sc">:</span><span class="fl">334.0</span>   Max.   <span class="sc">:</span><span class="fl">20.700</span>   Max.   <span class="sc">:</span><span class="fl">97.00</span>  </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  NA<span class="st">'s   :37       NA'</span>s   <span class="sc">:</span><span class="dv">7</span>                                       </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>      Month            Day      </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  Min.   <span class="sc">:</span><span class="fl">5.000</span>   Min.   <span class="sc">:</span> <span class="fl">1.0</span>  </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">6.000</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">8.0</span>  </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  Median <span class="sc">:</span><span class="fl">7.000</span>   Median <span class="sc">:</span><span class="fl">16.0</span>  </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  Mean   <span class="sc">:</span><span class="fl">6.993</span>   Mean   <span class="sc">:</span><span class="fl">15.8</span>  </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">8.000</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">23.0</span>  </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  Max.   <span class="sc">:</span><span class="fl">9.000</span>   Max.   <span class="sc">:</span><span class="fl">31.0</span>  </span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>instagram_long <span class="ot">&lt;-</span> instagram_data_2 <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(Segunda<span class="sc">:</span>Domingo), <span class="at">names_to =</span> <span class="st">"Dia"</span>, <span class="at">values_to =</span> <span class="st">"Tempo"</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar histograma separado por dia</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(instagram_long, <span class="fu">aes</span>(<span class="at">x =</span> Tempo, <span class="at">fill =</span> Dia)) <span class="sc">+</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">10</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Dia) <span class="sc">+</span>  <span class="co"># Cria um gráfico separado para cada dia</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribuição do Tempo de Uso do Instagram por Dia"</span>,</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Tempo (horas)"</span>, <span class="at">y =</span> <span class="st">"Frequência"</span>) <span class="sc">+</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajustar o tamanho do gráfico na célula do notebook</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">12</span>, <span class="at">repr.plot.height =</span> <span class="dv">8</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de relação entre as variáveis</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(airquality, <span class="at">main =</span> <span class="st">"Gráfico de Relação entre Variáveis"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">lower.panel =</span> panel.smooth, <span class="at">upper.panel =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell panel-full">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajustar o tamanho do gráfico na célula do notebook</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">8</span>, <span class="at">repr.plot.height =</span> <span class="dv">8</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Aplicação de um modelo de regressão linear</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>model_airquality <span class="ot">=</span> <span class="fu">lm</span>(Ozone <span class="sc">~</span>., <span class="at">data=</span>airquality)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráficos de resíduos</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_airquality)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Coeficiente de Determinação (R²) com uma mensagem explicativa</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"O coeficiente de determinação (R²) do modelo é:"</span>, <span class="fu">round</span>(<span class="fu">summary</span>(model_airquality)<span class="sc">$</span>r.squared, <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> O coeficiente de determinação (R²) do modelo é<span class="sc">:</span> <span class="fl">0.6249</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_airquality)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Call<span class="sc">:</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> <span class="fu">lm</span>(<span class="at">formula =</span> Ozone <span class="sc">~</span> ., <span class="at">data =</span> airquality)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Residuals<span class="sc">:</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span>     Min      <span class="dv">1</span>Q  Median      <span class="dv">3</span>Q     Max </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="sc">-</span><span class="fl">37.014</span> <span class="sc">-</span><span class="fl">12.284</span>  <span class="sc">-</span><span class="fl">3.302</span>   <span class="fl">8.454</span>  <span class="fl">95.348</span> </span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Coefficients<span class="sc">:</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span>              Estimate Std. Error t value <span class="fu">Pr</span>(<span class="sc">&gt;</span><span class="er">|</span>t<span class="sc">|</span>)    </span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> (Intercept) <span class="sc">-</span><span class="fl">64.11632</span>   <span class="fl">23.48249</span>  <span class="sc">-</span><span class="fl">2.730</span>  <span class="fl">0.00742</span> <span class="sc">**</span> </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Solar.R       <span class="fl">0.05027</span>    <span class="fl">0.02342</span>   <span class="fl">2.147</span>  <span class="fl">0.03411</span> <span class="sc">*</span>  </span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Wind         <span class="sc">-</span><span class="fl">3.31844</span>    <span class="fl">0.64451</span>  <span class="sc">-</span><span class="fl">5.149</span> <span class="fl">1.23e-06</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Temp          <span class="fl">1.89579</span>    <span class="fl">0.27389</span>   <span class="fl">6.922</span> <span class="fl">3.66e-10</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Month        <span class="sc">-</span><span class="fl">3.03996</span>    <span class="fl">1.51346</span>  <span class="sc">-</span><span class="fl">2.009</span>  <span class="fl">0.04714</span> <span class="sc">*</span>  </span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Day           <span class="fl">0.27388</span>    <span class="fl">0.22967</span>   <span class="fl">1.192</span>  <span class="fl">0.23576</span>    </span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="sc">---</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">'***'</span> <span class="fl">0.001</span> <span class="st">'**'</span> <span class="fl">0.01</span> <span class="st">'*'</span> <span class="fl">0.05</span> <span class="st">'.'</span> <span class="fl">0.1</span> <span class="st">' '</span> <span class="dv">1</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Residual standard error<span class="sc">:</span> <span class="fl">20.86</span> on <span class="dv">105</span> degrees of freedom</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>   (<span class="dv">42</span> observations deleted due to missingness)</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Multiple R<span class="sc">-</span>squared<span class="sc">:</span>  <span class="fl">0.6249</span>,    Adjusted R<span class="sc">-</span>squared<span class="sc">:</span>  <span class="fl">0.6071</span> </span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> F<span class="sc">-</span>statistic<span class="sc">:</span> <span class="fl">34.99</span> on <span class="dv">5</span> and <span class="dv">105</span> DF,  p<span class="sc">-</span>value<span class="sc">:</span> <span class="er">&lt;</span> <span class="fl">2.2e-16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(model_airquality)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span>     studentized Breusch<span class="sc">-</span>Pagan test</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> data<span class="sc">:</span>  model_airquality</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> BP <span class="ot">=</span> <span class="fl">5.3095</span>, df <span class="ot">=</span> <span class="dv">5</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.3793</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajustar o tamanho do gráfico na célula do notebook</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">8</span>, <span class="at">repr.plot.height =</span> <span class="dv">8</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>airquality_mod <span class="ot">&lt;-</span> airquality<span class="sc">%&gt;%</span><span class="fu">mutate</span>(<span class="at">Month=</span><span class="fu">factor</span>(Month))</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># airquality_mod &lt;- airquality_mod%&gt;%mutate(Day=factor(Day))</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>airquality_mod <span class="ot">&lt;-</span> airquality_mod<span class="sc">%&gt;%</span>drop_na</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Aplicação de um novo modelo de regressão linear</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>model_airquality <span class="ot">=</span> <span class="fu">lm</span>(<span class="fu">log</span>(Ozone) <span class="sc">~</span>., <span class="at">data=</span>airquality_mod)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráficos de resíduos</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_airquality)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -329,45 +292,489 @@ window.Quarto = {
 </figure>
 </div>
 </div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Coeficiente de Determinação (R²) com uma mensagem explicativa</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"O coeficiente de determinação (R²) do modelo é:"</span>, <span class="fu">round</span>(<span class="fu">summary</span>(model_airquality)<span class="sc">$</span>r.squared, <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> O coeficiente de determinação (R²) do modelo é<span class="sc">:</span> <span class="fl">0.6732</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_airquality)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Call<span class="sc">:</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> <span class="fu">lm</span>(<span class="at">formula =</span> <span class="fu">log</span>(Ozone) <span class="sc">~</span> ., <span class="at">data =</span> airquality_mod)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Residuals<span class="sc">:</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span>      Min       <span class="dv">1</span>Q   Median       <span class="dv">3</span>Q      Max </span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="sc">-</span><span class="fl">2.13862</span> <span class="sc">-</span><span class="fl">0.27374</span> <span class="sc">-</span><span class="fl">0.00767</span>  <span class="fl">0.26599</span>  <span class="fl">1.14361</span> </span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Coefficients<span class="sc">:</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span>               Estimate Std. Error t value <span class="fu">Pr</span>(<span class="sc">&gt;</span><span class="er">|</span>t<span class="sc">|</span>)    </span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> (Intercept) <span class="sc">-</span><span class="fl">0.4449430</span>  <span class="fl">0.6691203</span>  <span class="sc">-</span><span class="fl">0.665</span>  <span class="fl">0.50757</span>    </span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Solar.R      <span class="fl">0.0024432</span>  <span class="fl">0.0005871</span>   <span class="fl">4.161</span> <span class="fl">6.62e-05</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Wind        <span class="sc">-</span><span class="fl">0.0592787</span>  <span class="fl">0.0163748</span>  <span class="sc">-</span><span class="fl">3.620</span>  <span class="fl">0.00046</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Temp         <span class="fl">0.0519251</span>  <span class="fl">0.0085317</span>   <span class="fl">6.086</span> <span class="fl">2.05e-08</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Month6      <span class="sc">-</span><span class="fl">0.1597722</span>  <span class="fl">0.2263292</span>  <span class="sc">-</span><span class="fl">0.706</span>  <span class="fl">0.48184</span>    </span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Month7      <span class="sc">-</span><span class="fl">0.1087654</span>  <span class="fl">0.1954027</span>  <span class="sc">-</span><span class="fl">0.557</span>  <span class="fl">0.57900</span>    </span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Month8      <span class="sc">-</span><span class="fl">0.0395237</span>  <span class="fl">0.2038328</span>  <span class="sc">-</span><span class="fl">0.194</span>  <span class="fl">0.84664</span>    </span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Month9      <span class="sc">-</span><span class="fl">0.1970522</span>  <span class="fl">0.1652345</span>  <span class="sc">-</span><span class="fl">1.193</span>  <span class="fl">0.23581</span>    </span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Day          <span class="fl">0.0035922</span>  <span class="fl">0.0057353</span>   <span class="fl">0.626</span>  <span class="fl">0.53250</span>    </span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="sc">---</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">'***'</span> <span class="fl">0.001</span> <span class="st">'**'</span> <span class="fl">0.01</span> <span class="st">'*'</span> <span class="fl">0.05</span> <span class="st">'.'</span> <span class="fl">0.1</span> <span class="st">' '</span> <span class="dv">1</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Residual standard error<span class="sc">:</span> <span class="fl">0.5141</span> on <span class="dv">102</span> degrees of freedom</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Multiple R<span class="sc">-</span>squared<span class="sc">:</span>  <span class="fl">0.6732</span>,    Adjusted R<span class="sc">-</span>squared<span class="sc">:</span>  <span class="fl">0.6475</span> </span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> F<span class="sc">-</span>statistic<span class="sc">:</span> <span class="fl">26.26</span> on <span class="dv">8</span> and <span class="dv">102</span> DF,  p<span class="sc">-</span>value<span class="sc">:</span> <span class="er">&lt;</span> <span class="fl">2.2e-16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transformar os dados para o formato longo</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>instagram_long <span class="ot">&lt;-</span> tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(instagram_data_2, <span class="at">cols =</span> <span class="fu">all_of</span>(dias_da_semana),</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">names_to =</span> <span class="st">"Dia"</span>, <span class="at">values_to =</span> <span class="st">"Tempo"</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar um boxplot para ver a distribuição do uso ao longo da semana</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(instagram_long, <span class="fu">aes</span>(<span class="at">x =</span> Dia, <span class="at">y =</span> Tempo, <span class="at">fill =</span> Dia)) <span class="sc">+</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Tempo de Uso do Instagram por Dia da Semana"</span>,</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Dia da Semana"</span>, <span class="at">y =</span> <span class="st">"Tempo (horas)"</span>) <span class="sc">+</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(model_airquality)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span>     studentized Breusch<span class="sc">-</span>Pagan test</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> data<span class="sc">:</span>  model_airquality</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> BP <span class="ot">=</span> <span class="fl">22.28</span>, df <span class="ot">=</span> <span class="dv">8</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.004423</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="qualidade-do-sono" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Qualidade do Sono</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sleep_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/sleep.csv"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> New names<span class="sc">:</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Rows<span class="sc">:</span> <span class="dv">180</span> Columns<span class="sc">:</span> <span class="dv">4</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> ── Column specification</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> ──────────────────────────────────────────────────────── Delimiter<span class="sc">:</span> <span class="st">","</span> dbl</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> (<span class="dv">4</span>)<span class="sc">:</span> ...<span class="dv">1</span>, Reaction, Days, Subject</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> ℹ Use <span class="st">`</span><span class="at">spec()</span><span class="st">`</span> to retrieve the full column specification <span class="cf">for</span> this data. ℹ</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Specify the column types or set <span class="st">`</span><span class="at">show_col_types = FALSE</span><span class="st">`</span> to quiet this message.</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> • <span class="st">``</span> <span class="ot">-&gt;</span> <span class="st">`</span><span class="at">...1</span><span class="st">`</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sleep_data)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="co"># A tibble: 6 × 4</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span>    ...<span class="dv">1</span> Reaction  Days Subject</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>    <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> <span class="dv">1</span>     <span class="dv">1</span>     <span class="fl">250.</span>     <span class="dv">0</span>     <span class="dv">308</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2</span>     <span class="dv">2</span>     <span class="fl">259.</span>     <span class="dv">1</span>     <span class="dv">308</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">3</span>     <span class="dv">3</span>     <span class="fl">251.</span>     <span class="dv">2</span>     <span class="dv">308</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">4</span>     <span class="dv">4</span>     <span class="fl">321.</span>     <span class="dv">3</span>     <span class="dv">308</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">5</span>     <span class="dv">5</span>     <span class="fl">357.</span>     <span class="dv">4</span>     <span class="dv">308</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">6</span>     <span class="dv">6</span>     <span class="fl">415.</span>     <span class="dv">5</span>     <span class="dv">308</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sleep_data)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>       ...<span class="dv">1</span>           Reaction          Days        Subject     </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  Min.   <span class="sc">:</span>  <span class="fl">1.00</span>   Min.   <span class="sc">:</span><span class="fl">194.3</span>   Min.   <span class="sc">:</span><span class="fl">0.0</span>   Min.   <span class="sc">:</span><span class="fl">308.0</span>  </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">45.75</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">255.4</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">2.0</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">331.0</span>  </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  Median <span class="sc">:</span> <span class="fl">90.50</span>   Median <span class="sc">:</span><span class="fl">288.7</span>   Median <span class="sc">:</span><span class="fl">4.5</span>   Median <span class="sc">:</span><span class="fl">336.0</span>  </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  Mean   <span class="sc">:</span> <span class="fl">90.50</span>   Mean   <span class="sc">:</span><span class="fl">298.5</span>   Mean   <span class="sc">:</span><span class="fl">4.5</span>   Mean   <span class="sc">:</span><span class="fl">341.3</span>  </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">135.25</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">336.8</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">7.0</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">352.0</span>  </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  Max.   <span class="sc">:</span><span class="fl">180.00</span>   Max.   <span class="sc">:</span><span class="fl">466.4</span>   Max.   <span class="sc">:</span><span class="fl">9.0</span>   Max.   <span class="sc">:</span><span class="fl">372.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajustar o tamanho do gráfico na célula do notebook</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">12</span>, <span class="at">repr.plot.height =</span> <span class="dv">8</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de relação entre as variáveis</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(sleep_data, <span class="at">main =</span> <span class="st">"Gráfico de Relação entre Variáveis"</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">lower.panel =</span> panel.smooth, <span class="at">upper.panel =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="main_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="main_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell panel-full">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajustar o tamanho do gráfico na célula do notebook</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">8</span>, <span class="at">repr.plot.height =</span> <span class="dv">8</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># airquality_mod &lt;- airquality_mod%&gt;%mutate(Day=factor(Day))</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>sleepstudy_mod <span class="ot">&lt;-</span> sleep_data<span class="sc">%&gt;%</span>drop_na</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Aplicação de um novo modelo de regressão linear</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>model_sleepstudy <span class="ot">=</span> <span class="fu">lmer</span>(Reaction <span class="sc">~</span> <span class="fu">factor</span>(Days) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Subject),<span class="at">data=</span>sleep_data)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráficos de resíduos</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_sleepstudy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Coeficiente de Determinação (R²) com uma mensagem explicativa</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#cat("O coeficiente de determinação (R²) do modelo é:", round(summary(model_sleepstudy)$r.squared, 4), "\n")</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_sleepstudy)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Linear mixed model fit by REML [<span class="st">'lmerMod'</span>]</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Formula<span class="sc">:</span> Reaction <span class="sc">~</span> <span class="fu">factor</span>(Days) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Subject)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>    Data<span class="sc">:</span> sleep_data</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> REML criterion at convergence<span class="sc">:</span> <span class="fl">1729.5</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Scaled residuals<span class="sc">:</span> </span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span>     Min      <span class="dv">1</span>Q  Median      <span class="dv">3</span>Q     Max </span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="sc">-</span><span class="fl">3.3473</span> <span class="sc">-</span><span class="fl">0.5293</span>  <span class="fl">0.0317</span>  <span class="fl">0.5328</span>  <span class="fl">4.2570</span> </span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Random effects<span class="sc">:</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span>  Groups   Name        Variance Std.Dev.</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  <span class="fu">Subject</span>  (Intercept) <span class="fl">1375.5</span>   <span class="fl">37.09</span>   </span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  Residual              <span class="fl">987.6</span>   <span class="fl">31.43</span>   </span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Number of obs<span class="sc">:</span> <span class="dv">180</span>, groups<span class="sc">:</span>  Subject, <span class="dv">18</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Fixed effects<span class="sc">:</span></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span>               Estimate Std. Error t value</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> (Intercept)    <span class="fl">256.652</span>     <span class="fl">11.458</span>  <span class="fl">22.400</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">factor</span>(Days)<span class="dv">1</span>    <span class="fl">7.844</span>     <span class="fl">10.475</span>   <span class="fl">0.749</span></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">factor</span>(Days)<span class="dv">2</span>    <span class="fl">8.710</span>     <span class="fl">10.475</span>   <span class="fl">0.831</span></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">factor</span>(Days)<span class="dv">3</span>   <span class="fl">26.340</span>     <span class="fl">10.475</span>   <span class="fl">2.515</span></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">factor</span>(Days)<span class="dv">4</span>   <span class="fl">31.998</span>     <span class="fl">10.475</span>   <span class="fl">3.055</span></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">factor</span>(Days)<span class="dv">5</span>   <span class="fl">51.867</span>     <span class="fl">10.475</span>   <span class="fl">4.951</span></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">factor</span>(Days)<span class="dv">6</span>   <span class="fl">55.526</span>     <span class="fl">10.475</span>   <span class="fl">5.301</span></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">factor</span>(Days)<span class="dv">7</span>   <span class="fl">62.099</span>     <span class="fl">10.475</span>   <span class="fl">5.928</span></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">factor</span>(Days)<span class="dv">8</span>   <span class="fl">79.978</span>     <span class="fl">10.475</span>   <span class="fl">7.635</span></span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">factor</span>(Days)<span class="dv">9</span>   <span class="fl">94.199</span>     <span class="fl">10.475</span>   <span class="fl">8.993</span></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Correlation of Fixed Effects<span class="sc">:</span></span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span>             (Intr) <span class="fu">fc</span>(D)<span class="dv">1</span> <span class="fu">fc</span>(D)<span class="dv">2</span> <span class="fu">fc</span>(D)<span class="dv">3</span> <span class="fu">fc</span>(D)<span class="dv">4</span> <span class="fu">fc</span>(D)<span class="dv">5</span> <span class="fu">fc</span>(D)<span class="dv">6</span> <span class="fu">fc</span>(D)<span class="dv">7</span> <span class="fu">fc</span>(D)<span class="dv">8</span></span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">factr</span>(Dys)<span class="dv">1</span> <span class="sc">-</span><span class="fl">0.457</span>                                                        </span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">factr</span>(Dys)<span class="dv">2</span> <span class="sc">-</span><span class="fl">0.457</span>  <span class="fl">0.500</span>                                                 </span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">factr</span>(Dys)<span class="dv">3</span> <span class="sc">-</span><span class="fl">0.457</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>                                          </span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">factr</span>(Dys)<span class="dv">4</span> <span class="sc">-</span><span class="fl">0.457</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>                                   </span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">factr</span>(Dys)<span class="dv">5</span> <span class="sc">-</span><span class="fl">0.457</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>                            </span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">factr</span>(Dys)<span class="dv">6</span> <span class="sc">-</span><span class="fl">0.457</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>                     </span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">factr</span>(Dys)<span class="dv">7</span> <span class="sc">-</span><span class="fl">0.457</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>              </span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">factr</span>(Dys)<span class="dv">8</span> <span class="sc">-</span><span class="fl">0.457</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>       </span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">factr</span>(Dys)<span class="dv">9</span> <span class="sc">-</span><span class="fl">0.457</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="metanalise" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Metanalise</h1>
+<section id="codigo-em-python-para-tratamento" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="codigo-em-python-para-tratamento"><span class="header-section-number">3.1</span> Codigo em python para tratamento</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>metanalise <span class="op">=</span> pd.read_csv(<span class="st">"data/metanalise.csv"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Apaga a coluna de índices</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>metanalise <span class="op">=</span> metanalise.drop(<span class="st">"Unnamed: 0"</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>metanalise.info()</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span> <span class="op">&lt;</span><span class="kw">class</span> <span class="st">'pandas.core.frame.DataFrame'</span><span class="op">&gt;</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span> RangeIndex: <span class="dv">100</span> entries, <span class="dv">0</span> to <span class="dv">99</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span> Data columns (total <span class="dv">4</span> columns):</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span>  <span class="co">#   Column      Non-Null Count  Dtype  </span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span> <span class="op">---</span>  <span class="op">------</span>      <span class="op">--------------</span>  <span class="op">-----</span>  </span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span>  <span class="dv">0</span>   yi          <span class="dv">100</span> non<span class="op">-</span>null    float64</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span>  <span class="dv">1</span>   vi          <span class="dv">100</span> non<span class="op">-</span>null    float64</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span>  <span class="dv">2</span>   cluster     <span class="dv">100</span> non<span class="op">-</span>null    <span class="bu">object</span> </span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span>  <span class="dv">3</span>   randomized  <span class="dv">100</span> non<span class="op">-</span>null    <span class="bu">bool</span>   </span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span> dtypes: <span class="bu">bool</span>(<span class="dv">1</span>), float64(<span class="dv">2</span>), <span class="bu">object</span>(<span class="dv">1</span>)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span> memory usage: <span class="fl">2.6</span><span class="op">+</span> KB</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>cluster <span class="op">=</span> metanalise[<span class="st">"cluster"</span>]</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> []</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>years <span class="op">=</span> []</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">Para cada publicação na coluna (cluster):</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">- Quebra o texto para indentificar o autor e o ano</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co">- Motivo_1: Buscar análise de um determinado autor pública mais viés de pesquisa.</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co">- Motivo_2: Teve algum ano em que houve um boom de publicações com viés?</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span> <span class="st">'</span><span class="ch">\n</span><span class="st">Para cada publicação na coluna (cluster):</span><span class="ch">\n</span><span class="st">- Quebra o texto para indentificar o autor e o ano</span><span class="ch">\n</span><span class="st">- Motivo_1: Buscar análise de um determinado autor pública mais viés de pesquisa.</span><span class="ch">\n</span><span class="st">- Motivo_2: Teve algum ano em que houve um boom de publicações com viés?</span><span class="ch">\n</span><span class="st">'</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row <span class="kw">in</span> metanalise[<span class="st">"cluster"</span>]:</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    name <span class="op">=</span> <span class="st">""</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    year <span class="op">=</span> <span class="st">""</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> value_ <span class="kw">in</span> row.split(<span class="st">" "</span>):</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>        <span class="co"># verifica se o valor é numérico.</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> value_.isnumeric():</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>           year <span class="op">=</span> <span class="bu">int</span>(value_)</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>        <span class="co"># verifica se é numérico com letra.</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> value_[:<span class="op">-</span><span class="dv">1</span>].isnumeric() <span class="kw">and</span> <span class="bu">len</span>(value_) <span class="op">==</span> <span class="dv">5</span>:</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>           year <span class="op">=</span> <span class="bu">int</span>(value_[:<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>           name <span class="op">+=</span> value_ <span class="op">+</span> <span class="st">" "</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>    names.append(name)</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>    years.append(year)</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Salva os dados tratados em uma nova coluna</span></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>metanalise[<span class="st">"autors"</span>] <span class="op">=</span> names</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>metanalise[<span class="st">"pyears"</span>] <span class="op">=</span> years</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Elimina a coluna redundante</span></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>metanalise <span class="op">=</span> metanalise.drop(<span class="st">"cluster"</span>, axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gera um novo arquivo com os dados modificados</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>metanalise.to_csv(<span class="st">"metanalise_mod.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>metanalise.hist()</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span> array([[<span class="op">&lt;</span>Axes: title<span class="op">=</span>{<span class="st">'center'</span>: <span class="st">'yi'</span>}<span class="op">&gt;</span>, <span class="op">&lt;</span>Axes: title<span class="op">=</span>{<span class="st">'center'</span>: <span class="st">'vi'</span>}<span class="op">&gt;</span>],</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a> <span class="op">&gt;&gt;</span>        [<span class="op">&lt;</span>Axes: title<span class="op">=</span>{<span class="st">'center'</span>: <span class="st">'pyears'</span>}<span class="op">&gt;</span>, <span class="op">&lt;</span>Axes: <span class="op">&gt;</span>]], dtype<span class="op">=</span><span class="bu">object</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="analise-dos-dados-no-r" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="analise-dos-dados-no-r"><span class="header-section-number">3.2</span> Analise dos dados no R</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>metanalise <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"metanalise_mod.csv"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Rows<span class="sc">:</span> <span class="dv">100</span> Columns<span class="sc">:</span> <span class="dv">5</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> ── Column specification ────────────────────────────────────────────────────────</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Delimiter<span class="sc">:</span> <span class="st">","</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">chr</span> (<span class="dv">1</span>)<span class="sc">:</span> autors</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">dbl</span> (<span class="dv">3</span>)<span class="sc">:</span> yi, vi, pyears</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">lgl</span> (<span class="dv">1</span>)<span class="sc">:</span> randomized</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> ℹ Use <span class="st">`</span><span class="at">spec()</span><span class="st">`</span> to retrieve the full column specification <span class="cf">for</span> this data.</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> ℹ Specify the column types or set <span class="st">`</span><span class="at">show_col_types = FALSE</span><span class="st">`</span> to quiet this message.</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>metanalise <span class="ot">=</span> metanalise <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">autors =</span> <span class="fu">factor</span>(autors))</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>metanalise <span class="ot">=</span> metanalise <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">pyears =</span> <span class="fu">factor</span>(pyears))</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(metanalise)</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="co"># A tibble: 6 × 5</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span>         yi      vi randomized autors   pyears</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>      <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>      <span class="er">&lt;</span>fct<span class="sc">&gt;</span>    <span class="er">&lt;</span>fct<span class="sc">&gt;</span> </span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> <span class="dv">1</span> <span class="sc">-</span><span class="fl">0.388</span>   <span class="fl">0.114</span>   <span class="cn">FALSE</span>      ACE      <span class="dv">2013</span>  </span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2</span>  <span class="fl">0.00143</span> <span class="fl">0.00818</span> <span class="cn">FALSE</span>      ACE      <span class="dv">2013</span>  </span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">3</span> <span class="sc">-</span><span class="fl">0.0778</span>  <span class="fl">0.0156</span>  <span class="cn">FALSE</span>      ACE      <span class="dv">2013</span>  </span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">4</span>  <span class="fl">0.395</span>   <span class="fl">0.0567</span>  <span class="cn">TRUE</span>       Amiot    <span class="dv">2018</span>  </span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">5</span>  <span class="fl">0.109</span>   <span class="fl">0.006</span>   <span class="cn">TRUE</span>       Anderson <span class="dv">2016</span>  </span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">6</span>  <span class="fl">0.0711</span>  <span class="fl">0.00110</span> <span class="cn">TRUE</span>       Anderson <span class="dv">2017</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(metanalise)</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>        yi                 vi           randomized                      autors  </span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  Min.   <span class="sc">:-</span><span class="fl">0.39363</span>   Min.   <span class="sc">:</span><span class="fl">0.001104</span>   Mode <span class="sc">:</span>logical   Reese              <span class="sc">:</span><span class="dv">17</span>  </span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  <span class="dv">1</span>st Qu.<span class="sc">:</span> <span class="fl">0.04577</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">0.015469</span>   <span class="cn">FALSE</span><span class="sc">:</span><span class="dv">23</span>        Cooney             <span class="sc">:</span> <span class="dv">9</span>  </span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  Median <span class="sc">:</span> <span class="fl">0.20430</span>   Median <span class="sc">:</span><span class="fl">0.025915</span>   <span class="cn">TRUE</span> <span class="sc">:</span><span class="dv">77</span>        Norris             <span class="sc">:</span> <span class="dv">8</span>  </span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  Mean   <span class="sc">:</span> <span class="fl">0.23066</span>   Mean   <span class="sc">:</span><span class="fl">0.092426</span>                   Kunst              <span class="sc">:</span> <span class="dv">6</span>  </span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  <span class="dv">3</span>rd Qu.<span class="sc">:</span> <span class="fl">0.39196</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">0.079718</span>                   Rouk               <span class="sc">:</span> <span class="dv">6</span>  </span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  Max.   <span class="sc">:</span> <span class="fl">1.57307</span>   Max.   <span class="sc">:</span><span class="fl">2.205159</span>                   Schnabelrauch Arndt<span class="sc">:</span> <span class="dv">6</span>  </span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>                                                        (Other)            <span class="sc">:</span><span class="dv">48</span>  </span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>      pyears  </span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  <span class="dv">2016</span>   <span class="sc">:</span><span class="dv">28</span>  </span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  <span class="dv">2015</span>   <span class="sc">:</span><span class="dv">27</span>  </span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  <span class="dv">2017</span>   <span class="sc">:</span><span class="dv">14</span>  </span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  <span class="dv">2014</span>   <span class="sc">:</span><span class="dv">11</span>  </span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  <span class="dv">2019</span>   <span class="sc">:</span> <span class="dv">9</span>  </span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  <span class="dv">2018</span>   <span class="sc">:</span> <span class="dv">7</span>  </span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>  (Other)<span class="sc">:</span> <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajustar o tamanho do gráfico na célula do notebook</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">8</span>, <span class="at">repr.plot.height =</span> <span class="dv">8</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Aplicação de um modelo de regressão linear</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>model_metanalise <span class="ot">=</span> <span class="fu">lm</span>(yi <span class="sc">~</span>  ., <span class="at">data=</span>metanalise)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráficos de resíduos</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_metanalise)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Warning<span class="sc">:</span> not plotting observations with leverage one<span class="sc">:</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span>   <span class="dv">4</span>, <span class="dv">12</span>, <span class="dv">26</span>, <span class="dv">27</span>, <span class="dv">34</span>, <span class="dv">38</span>, <span class="dv">47</span>, <span class="dv">92</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Warning <span class="cf">in</span> <span class="fu">sqrt</span>(crit <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> hh)<span class="sc">/</span>hh)<span class="sc">:</span> NaNs produzidos</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Warning <span class="cf">in</span> <span class="fu">sqrt</span>(crit <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> hh)<span class="sc">/</span>hh)<span class="sc">:</span> NaNs produzidos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Coeficiente de Determinação (R²) com uma mensagem explicativa</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"O coeficiente de determinação (R²) do modelo é:"</span>, <span class="fu">round</span>(<span class="fu">summary</span>(model_metanalise)<span class="sc">$</span>r.squared, <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> O coeficiente de determinação (R²) do modelo é<span class="sc">:</span> <span class="fl">0.6756</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_metanalise)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Call<span class="sc">:</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> <span class="fu">lm</span>(<span class="at">formula =</span> yi <span class="sc">~</span> ., <span class="at">data =</span> metanalise)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Residuals<span class="sc">:</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span>      Min       <span class="dv">1</span>Q   Median       <span class="dv">3</span>Q      Max </span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="sc">-</span><span class="fl">0.65319</span> <span class="sc">-</span><span class="fl">0.08409</span>  <span class="fl">0.00000</span>  <span class="fl">0.07199</span>  <span class="fl">0.69708</span> </span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Coefficients<span class="sc">:</span> (<span class="dv">3</span> not defined because of singularities)</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>                           Estimate Std. Error t value <span class="fu">Pr</span>(<span class="sc">&gt;</span><span class="er">|</span>t<span class="sc">|</span>)    </span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> (Intercept)               <span class="sc">-</span><span class="fl">0.17500</span>    <span class="fl">0.12516</span>  <span class="sc">-</span><span class="fl">1.398</span> <span class="fl">0.166677</span>    </span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> vi                         <span class="fl">0.43797</span>    <span class="fl">0.11856</span>   <span class="fl">3.694</span> <span class="fl">0.000446</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> randomizedTRUE            <span class="sc">-</span><span class="fl">0.22876</span>    <span class="fl">0.14829</span>  <span class="sc">-</span><span class="fl">1.543</span> <span class="fl">0.127613</span>    </span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> autorsAmiot                <span class="fl">0.51900</span>    <span class="fl">0.37838</span>   <span class="fl">1.372</span> <span class="fl">0.174757</span>    </span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> autorsAnderson             <span class="fl">0.39817</span>    <span class="fl">0.29645</span>   <span class="fl">1.343</span> <span class="fl">0.183765</span>    </span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> autorsBertolaso            <span class="fl">0.63367</span>    <span class="fl">0.22218</span>   <span class="fl">2.852</span> <span class="fl">0.005770</span> <span class="sc">**</span> </span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> autorsByrd<span class="sc">-</span>Bredbenner      <span class="fl">0.76547</span>    <span class="fl">0.29075</span>   <span class="fl">2.633</span> <span class="fl">0.010504</span> <span class="sc">*</span>  </span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> autorsCaldwell             <span class="fl">0.62455</span>    <span class="fl">0.28198</span>   <span class="fl">2.215</span> <span class="fl">0.030174</span> <span class="sc">*</span>  </span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> autorsCooney               <span class="fl">0.11593</span>    <span class="fl">0.24719</span>   <span class="fl">0.469</span> <span class="fl">0.640597</span>    </span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> autorsCordts               <span class="fl">1.14888</span>    <span class="fl">0.33086</span>   <span class="fl">3.472</span> <span class="fl">0.000908</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> autorsDoebel               <span class="fl">0.74570</span>    <span class="fl">0.22220</span>   <span class="fl">3.356</span> <span class="fl">0.001306</span> <span class="sc">**</span> </span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> autorsEarle                <span class="fl">1.03270</span>    <span class="fl">0.24717</span>   <span class="fl">4.178</span>  <span class="fl">8.7e-05</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> autorsFeltz                <span class="fl">0.06335</span>    <span class="fl">0.25009</span>   <span class="fl">0.253</span> <span class="fl">0.800817</span>    </span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> autorsFIAPO                <span class="fl">0.77658</span>    <span class="fl">0.31493</span>   <span class="fl">2.466</span> <span class="fl">0.016233</span> <span class="sc">*</span>  </span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> autorsFlens               <span class="sc">-</span><span class="fl">0.14389</span>    <span class="fl">0.36457</span>  <span class="sc">-</span><span class="fl">0.395</span> <span class="fl">0.694333</span>    </span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> autorsHennessy            <span class="sc">-</span><span class="fl">0.05389</span>    <span class="fl">0.29076</span>  <span class="sc">-</span><span class="fl">0.185</span> <span class="fl">0.853527</span>    </span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> autorsKunst                <span class="fl">0.42232</span>    <span class="fl">0.26984</span>   <span class="fl">1.565</span> <span class="fl">0.122275</span>    </span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> autorsLackner              <span class="fl">0.01378</span>    <span class="fl">0.29078</span>   <span class="fl">0.047</span> <span class="fl">0.962355</span>    </span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> autorsMacDonald            <span class="fl">0.19587</span>    <span class="fl">0.29078</span>   <span class="fl">0.674</span> <span class="fl">0.502899</span>    </span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> autorsNorris               <span class="fl">0.28443</span>    <span class="fl">0.19777</span>   <span class="fl">1.438</span> <span class="fl">0.155033</span>    </span>
+<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> autorsNovotna              <span class="fl">0.69603</span>    <span class="fl">0.24715</span>   <span class="fl">2.816</span> <span class="fl">0.006377</span> <span class="sc">**</span> </span>
+<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> autorsPalomo<span class="sc">-</span>Velez         <span class="fl">0.32217</span>    <span class="fl">0.33452</span>   <span class="fl">0.963</span> <span class="fl">0.338967</span>    </span>
+<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> autorsReese                <span class="fl">0.62805</span>    <span class="fl">0.20267</span>   <span class="fl">3.099</span> <span class="fl">0.002838</span> <span class="sc">**</span> </span>
+<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> autorsRouk                 <span class="fl">0.69850</span>    <span class="fl">0.30666</span>   <span class="fl">2.278</span> <span class="fl">0.025935</span> <span class="sc">*</span>  </span>
+<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> autorsSchnabelrauch Arndt  <span class="fl">0.31462</span>    <span class="fl">0.26248</span>   <span class="fl">1.199</span> <span class="fl">0.234890</span>    </span>
+<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> autorsSchwitzgebel         <span class="fl">0.30784</span>    <span class="fl">0.25013</span>   <span class="fl">1.231</span> <span class="fl">0.222736</span>    </span>
+<span id="cb22-43"><a href="#cb22-43" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> autorsSilva                <span class="fl">0.30275</span>    <span class="fl">0.29075</span>   <span class="fl">1.041</span> <span class="fl">0.301493</span>    </span>
+<span id="cb22-44"><a href="#cb22-44" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> autorsSpanikova            <span class="fl">0.05121</span>    <span class="fl">0.24742</span>   <span class="fl">0.207</span> <span class="fl">0.836655</span>    </span>
+<span id="cb22-45"><a href="#cb22-45" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> autorsTian                 <span class="fl">0.20378</span>    <span class="fl">0.26983</span>   <span class="fl">0.755</span> <span class="fl">0.452766</span>    </span>
+<span id="cb22-46"><a href="#cb22-46" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> pyears2013                      <span class="cn">NA</span>         <span class="cn">NA</span>      <span class="cn">NA</span>       <span class="cn">NA</span>    </span>
+<span id="cb22-47"><a href="#cb22-47" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> pyears2014                 <span class="fl">0.02711</span>    <span class="fl">0.21318</span>   <span class="fl">0.127</span> <span class="fl">0.899198</span>    </span>
+<span id="cb22-48"><a href="#cb22-48" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> pyears2015                      <span class="cn">NA</span>         <span class="cn">NA</span>      <span class="cn">NA</span>       <span class="cn">NA</span>    </span>
+<span id="cb22-49"><a href="#cb22-49" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> pyears2016                 <span class="fl">0.27599</span>    <span class="fl">0.18757</span>   <span class="fl">1.471</span> <span class="fl">0.145859</span>    </span>
+<span id="cb22-50"><a href="#cb22-50" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> pyears2017                 <span class="fl">0.04588</span>    <span class="fl">0.24564</span>   <span class="fl">0.187</span> <span class="fl">0.852392</span>    </span>
+<span id="cb22-51"><a href="#cb22-51" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> pyears2018                 <span class="fl">0.25505</span>    <span class="fl">0.26526</span>   <span class="fl">0.962</span> <span class="fl">0.339747</span>    </span>
+<span id="cb22-52"><a href="#cb22-52" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> pyears2019                      <span class="cn">NA</span>         <span class="cn">NA</span>      <span class="cn">NA</span>       <span class="cn">NA</span>    </span>
+<span id="cb22-53"><a href="#cb22-53" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="sc">---</span></span>
+<span id="cb22-54"><a href="#cb22-54" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">'***'</span> <span class="fl">0.001</span> <span class="st">'**'</span> <span class="fl">0.01</span> <span class="st">'*'</span> <span class="fl">0.05</span> <span class="st">'.'</span> <span class="fl">0.1</span> <span class="st">' '</span> <span class="dv">1</span></span>
+<span id="cb22-55"><a href="#cb22-55" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb22-56"><a href="#cb22-56" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> Residual standard error<span class="sc">:</span> <span class="fl">0.2166</span> on <span class="dv">67</span> degrees of freedom</span>
+<span id="cb22-57"><a href="#cb22-57" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Multiple R<span class="sc">-</span>squared<span class="sc">:</span>  <span class="fl">0.6756</span>,    Adjusted R<span class="sc">-</span>squared<span class="sc">:</span>  <span class="fl">0.5207</span> </span>
+<span id="cb22-58"><a href="#cb22-58" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> F<span class="sc">-</span>statistic<span class="sc">:</span> <span class="fl">4.361</span> on <span class="dv">32</span> and <span class="dv">67</span> DF,  p<span class="sc">-</span>value<span class="sc">:</span> <span class="fl">1.923e-07</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(model_metanalise)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span>     studentized Breusch<span class="sc">-</span>Pagan test</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> data<span class="sc">:</span>  model_metanalise</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> BP <span class="ot">=</span> <span class="fl">36.192</span>, df <span class="ot">=</span> <span class="dv">32</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.2792</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="instagram" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Instagram</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>instagram_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/instagram.csv"</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Rows<span class="sc">:</span> <span class="dv">15</span> Columns<span class="sc">:</span> <span class="dv">18</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> ── Column specification ────────────────────────────────────────────────────────</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Delimiter<span class="sc">:</span> <span class="st">","</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">chr</span> (<span class="dv">18</span>)<span class="sc">:</span> Segunda, Terca, Quarta, Quinta, Sexta, Sabado, Domingo, idade, gen...</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> ℹ Use <span class="st">`</span><span class="at">spec()</span><span class="st">`</span> to retrieve the full column specification <span class="cf">for</span> this data.</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> ℹ Specify the column types or set <span class="st">`</span><span class="at">show_col_types = FALSE</span><span class="st">`</span> to quiet this message.</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>convert_to_hours <span class="ot">&lt;-</span> <span class="cf">function</span>(time_str) {</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  time_str <span class="ot">&lt;-</span> <span class="fu">tolower</span>(time_str)  <span class="co"># Converter para minúsculas</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  horas <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">str_extract</span>(time_str, <span class="st">"</span><span class="sc">\\</span><span class="st">d+(?= h)"</span>))  <span class="co"># Pegar as horas</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  minutos <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">str_extract</span>(time_str, <span class="st">"</span><span class="sc">\\</span><span class="st">d+(?= min)"</span>))  <span class="co"># Pegar os minutos</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Substituir NA por 0 onde necessário</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>  horas[<span class="fu">is.na</span>(horas)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>  minutos[<span class="fu">is.na</span>(minutos)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Converter para horas</span></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>  total_horas <span class="ot">&lt;-</span> horas <span class="sc">+</span> (minutos <span class="sc">/</span> <span class="dv">60</span>)</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(total_horas)</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>dias_da_semana <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Segunda"</span>, <span class="st">"Terca"</span>, <span class="st">"Quarta"</span>, <span class="st">"Quinta"</span>, <span class="st">"Sexta"</span>, <span class="st">"Sabado"</span>, <span class="st">"Domingo"</span>)</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>instagram_data_2 <span class="ot">&lt;-</span> instagram_data <span class="sc">%&gt;%</span></span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">all_of</span>(dias_da_semana), convert_to_hours))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(instagram_data_2)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Rows<span class="sc">:</span> <span class="dv">15</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Columns<span class="sc">:</span> <span class="dv">18</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> Segunda           <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="fl">0.9333333</span>, <span class="fl">1.3666667</span>, <span class="fl">0.0000000</span>, <span class="fl">0.0000000</span>, <span class="fl">0.000000</span>…</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> Terca             <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="fl">1.2666667</span>, <span class="fl">1.4500000</span>, <span class="fl">0.0000000</span>, <span class="fl">0.0000000</span>, <span class="fl">0.000000</span>…</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> Quarta            <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="fl">0.7833333</span>, <span class="fl">0.0000000</span>, <span class="fl">0.0000000</span>, <span class="fl">0.0000000</span>, <span class="fl">0.000000</span>…</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> Quinta            <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="fl">1.3666667</span>, <span class="fl">1.2166667</span>, <span class="fl">0.0000000</span>, <span class="fl">0.0000000</span>, <span class="fl">0.000000</span>…</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> Sexta             <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="fl">0.3666667</span>, <span class="fl">0.6333333</span>, <span class="fl">0.0000000</span>, <span class="fl">0.0000000</span>, <span class="fl">0.000000</span>…</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> Sabado            <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="fl">0.91666667</span>, <span class="fl">1.83333333</span>, <span class="fl">0.00000000</span>, <span class="fl">0.00000000</span>, <span class="fl">0.00</span>…</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> Domingo           <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="fl">0.63333333</span>, <span class="fl">0.53333333</span>, <span class="fl">0.00000000</span>, <span class="fl">0.00000000</span>, <span class="fl">0.00</span>…</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> idade             <span class="sc">&lt;</span>chr<span class="sc">&gt;</span> <span class="st">"24"</span>, <span class="st">"23"</span>, <span class="st">"22"</span>, <span class="st">"21"</span>, <span class="st">"22"</span>, <span class="st">"23"</span>, <span class="st">"24"</span>, <span class="st">"25"</span>, <span class="st">"22"</span>…</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> genero            <span class="sc">&lt;</span>chr<span class="sc">&gt;</span> <span class="st">"Masculino"</span>, <span class="st">"Hétero"</span>, <span class="st">"Masculino"</span>, <span class="st">"M"</span>, <span class="st">"Masculino"</span>…</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> trabalha          <span class="sc">&lt;</span>chr<span class="sc">&gt;</span> <span class="st">"Sim"</span>, <span class="st">"Sim"</span>, <span class="st">"Sim"</span>, <span class="st">"Sim"</span>, <span class="st">"Não"</span>, <span class="st">"Não"</span>, <span class="st">"Sim"</span>, <span class="st">"Nã…</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="st"> &gt;&gt; $ trabalhaInstagram &lt;chr&gt; "</span>Não<span class="st">", "</span>Não<span class="st">", "</span>Não<span class="st">", "</span>Não<span class="st">", "</span>Não<span class="st">", "</span>Não<span class="st">", "</span>Não<span class="st">", "</span>Nã…</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> videosLongos      <span class="sc">&lt;</span>chr<span class="sc">&gt;</span> <span class="st">"Sim"</span>, <span class="st">"Sim"</span>, <span class="st">"Sim"</span>, <span class="st">"Sim"</span>, <span class="st">"Sim"</span>, <span class="st">"Sim"</span>, <span class="st">"Não"</span>, <span class="st">"Si…</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="st"> &gt;&gt; $ moraSo            &lt;chr&gt; "</span>Não<span class="st">", "</span>Sim<span class="st">", "</span>Não<span class="st">", "</span>Não<span class="st">", "</span>Não<span class="st">", "</span>Não<span class="st">", "</span>Não<span class="st">", "</span>Nã…</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> Semestre          <span class="sc">&lt;</span>chr<span class="sc">&gt;</span> <span class="st">"5+"</span>, <span class="st">"5+"</span>, <span class="st">"5+"</span>, <span class="st">"5+"</span>, <span class="st">"5+"</span>, <span class="st">"5+"</span>, <span class="st">"5+"</span>, <span class="st">"5+"</span>, <span class="st">"5+"</span>…</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> streamingDiario   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span> <span class="st">"Sim"</span>, <span class="st">"Não"</span>, <span class="st">"Não"</span>, <span class="st">"Não"</span>, <span class="st">"Sim"</span>, <span class="st">"Sim"</span>, <span class="st">"Não"</span>, <span class="st">"Nã…</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="st"> &gt;&gt; $ acesso            &lt;chr&gt; "</span><span class="dv">4</span>g e outros diferentes meios de wi<span class="sc">-</span>fi.<span class="st">", "</span><span class="dv">4</span>g e outr…</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span> translado         <span class="sc">&lt;</span>chr<span class="sc">&gt;</span> <span class="st">"40 minutos"</span>, <span class="st">"40 min"</span>, <span class="st">"1h 40min"</span>, <span class="st">"2 horas"</span>, <span class="st">"1 ho…</span></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a><span class="st"> &gt;&gt; $ transporte        &lt;chr&gt; "</span>Majoritariamente privado<span class="st">", "</span>Majoritariamente privad…</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(instagram_data_2)</span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="co"># A tibble: 6 × 18</span></span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span>   Segunda Terca Quarta Quinta Sexta Sabado Domingo idade genero    trabalha</span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>     <span class="er">&lt;</span>chr<span class="sc">&gt;</span>   </span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> <span class="dv">1</span>   <span class="fl">0.933</span>  <span class="fl">1.27</span>  <span class="fl">0.783</span>   <span class="fl">1.37</span> <span class="fl">0.367</span>  <span class="fl">0.917</span>   <span class="fl">0.633</span> <span class="dv">24</span>    Masculino Sim     </span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2</span>   <span class="fl">1.37</span>   <span class="fl">1.45</span>  <span class="dv">0</span>       <span class="fl">1.22</span> <span class="fl">0.633</span>  <span class="fl">1.83</span>    <span class="fl">0.533</span> <span class="dv">23</span>    Hétero    Sim     </span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">3</span>   <span class="dv">0</span>      <span class="dv">0</span>     <span class="dv">0</span>       <span class="dv">0</span>    <span class="dv">0</span>      <span class="dv">0</span>       <span class="dv">0</span>     <span class="dv">22</span>    Masculino Sim     </span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">4</span>   <span class="dv">0</span>      <span class="dv">0</span>     <span class="dv">0</span>       <span class="dv">0</span>    <span class="dv">0</span>      <span class="dv">0</span>       <span class="dv">0</span>     <span class="dv">21</span>    M         Sim     </span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">5</span>   <span class="dv">0</span>      <span class="dv">0</span>     <span class="dv">0</span>       <span class="dv">0</span>    <span class="dv">0</span>      <span class="dv">0</span>       <span class="dv">0</span>     <span class="dv">22</span>    Masculino Não     </span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">6</span>   <span class="fl">3.62</span>   <span class="dv">2</span>     <span class="fl">1.5</span>     <span class="fl">3.52</span> <span class="fl">3.18</span>   <span class="fl">4.47</span>    <span class="fl">4.97</span>  <span class="dv">23</span>    masculino Não     </span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="co"># ℹ 8 more variables: trabalhaInstagram &lt;chr&gt;, videosLongos &lt;chr&gt;,</span></span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> <span class="co">#   moraSo &lt;chr&gt;, Semestre &lt;chr&gt;, streamingDiario &lt;chr&gt;, acesso &lt;chr&gt;,</span></span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a> <span class="er">&gt;&gt;</span> <span class="co">#   translado &lt;chr&gt;, transporte &lt;chr&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>instagram_long <span class="ot">&lt;-</span> instagram_data_2 <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(Segunda<span class="sc">:</span>Domingo), <span class="at">names_to =</span> <span class="st">"Dia"</span>, <span class="at">values_to =</span> <span class="st">"Tempo"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar histograma separado por dia</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(instagram_long, <span class="fu">aes</span>(<span class="at">x =</span> Tempo, <span class="at">fill =</span> Dia)) <span class="sc">+</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">10</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Dia) <span class="sc">+</span>  <span class="co"># Cria um gráfico separado para cada dia</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribuição do Tempo de Uso do Instagram por Dia"</span>,</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Tempo (horas)"</span>, <span class="at">y =</span> <span class="st">"Frequência"</span>) <span class="sc">+</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>instagram_long <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Dia) <span class="sc">%&gt;%</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Media_Tempo =</span> <span class="fu">mean</span>(Tempo, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Dia, <span class="at">y =</span> Media_Tempo, <span class="at">fill =</span> Dia)) <span class="sc">+</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Média do Tempo de Uso do Instagram por Dia"</span>,</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Dia da Semana"</span>, <span class="at">y =</span> <span class="st">"Tempo médio (horas)"</span>) <span class="sc">+</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transformar os dados para o formato longo</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>instagram_long <span class="ot">&lt;-</span> tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(instagram_data_2, <span class="at">cols =</span> <span class="fu">all_of</span>(dias_da_semana),</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">names_to =</span> <span class="st">"Dia"</span>, <span class="at">values_to =</span> <span class="st">"Tempo"</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar um boxplot para ver a distribuição do uso ao longo da semana</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(instagram_long, <span class="fu">aes</span>(<span class="at">x =</span> Dia, <span class="at">y =</span> Tempo, <span class="at">fill =</span> Dia)) <span class="sc">+</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Tempo de Uso do Instagram por Dia da Semana"</span>,</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Dia da Semana"</span>, <span class="at">y =</span> <span class="st">"Tempo (horas)"</span>) <span class="sc">+</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="main_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="main_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>instagram_long <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Dia) <span class="sc">%&gt;%</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Media_Tempo =</span> <span class="fu">mean</span>(Tempo, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Dia, <span class="at">y =</span> Media_Tempo, <span class="at">fill =</span> Dia)) <span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Média do Tempo de Uso do Instagram por Dia"</span>,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Dia da Semana"</span>, <span class="at">y =</span> <span class="st">"Tempo médio (horas)"</span>) <span class="sc">+</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
