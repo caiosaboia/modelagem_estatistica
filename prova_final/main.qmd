@@ -52,7 +52,7 @@ knitr:
 
 # engine: julia # for more aplicatoins use quarto.org or :QuartoHelp Julia
 ---
-
+# Bibliotecas
 ```{r}
 library(lmtest)
 library(lme4)
@@ -324,7 +324,6 @@ ggplot(instagram_long, aes(x = Dia, y = Tempo, fill = Dia)) +
        x = "Dia da Semana", y = "Tempo (horas)") +
   theme_minimal()
 ```
-
 
 
 ```{r}

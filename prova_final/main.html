@@ -110,17 +110,18 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#qualidade-do-ar" id="toc-qualidade-do-ar" class="nav-link active" data-scroll-target="#qualidade-do-ar"><span class="header-section-number">1</span> Qualidade do Ar</a>
+  <li><a href="#bibliotecas" id="toc-bibliotecas" class="nav-link active" data-scroll-target="#bibliotecas"><span class="header-section-number">1</span> Bibliotecas</a></li>
+  <li><a href="#qualidade-do-ar" id="toc-qualidade-do-ar" class="nav-link" data-scroll-target="#qualidade-do-ar"><span class="header-section-number">2</span> Qualidade do Ar</a>
   <ul class="collapse">
-  <li><a href="#estudo-sobre-a-base-de-dados" id="toc-estudo-sobre-a-base-de-dados" class="nav-link" data-scroll-target="#estudo-sobre-a-base-de-dados"><span class="header-section-number">1.1</span> Estudo sobre a base de dados</a></li>
+  <li><a href="#estudo-sobre-a-base-de-dados" id="toc-estudo-sobre-a-base-de-dados" class="nav-link" data-scroll-target="#estudo-sobre-a-base-de-dados"><span class="header-section-number">2.1</span> Estudo sobre a base de dados</a></li>
   </ul></li>
-  <li><a href="#qualidade-do-sono" id="toc-qualidade-do-sono" class="nav-link" data-scroll-target="#qualidade-do-sono"><span class="header-section-number">2</span> Qualidade do Sono</a></li>
-  <li><a href="#metanalise" id="toc-metanalise" class="nav-link" data-scroll-target="#metanalise"><span class="header-section-number">3</span> Metanalise</a>
+  <li><a href="#qualidade-do-sono" id="toc-qualidade-do-sono" class="nav-link" data-scroll-target="#qualidade-do-sono"><span class="header-section-number">3</span> Qualidade do Sono</a></li>
+  <li><a href="#metanalise" id="toc-metanalise" class="nav-link" data-scroll-target="#metanalise"><span class="header-section-number">4</span> Metanalise</a>
   <ul class="collapse">
-  <li><a href="#codigo-em-python-para-tratamento" id="toc-codigo-em-python-para-tratamento" class="nav-link" data-scroll-target="#codigo-em-python-para-tratamento"><span class="header-section-number">3.1</span> Codigo em python para tratamento</a></li>
-  <li><a href="#analise-dos-dados-no-r" id="toc-analise-dos-dados-no-r" class="nav-link" data-scroll-target="#analise-dos-dados-no-r"><span class="header-section-number">3.2</span> Analise dos dados no R</a></li>
+  <li><a href="#codigo-em-python-para-tratamento" id="toc-codigo-em-python-para-tratamento" class="nav-link" data-scroll-target="#codigo-em-python-para-tratamento"><span class="header-section-number">4.1</span> Codigo em python para tratamento</a></li>
+  <li><a href="#analise-dos-dados-no-r" id="toc-analise-dos-dados-no-r" class="nav-link" data-scroll-target="#analise-dos-dados-no-r"><span class="header-section-number">4.2</span> Analise dos dados no R</a></li>
   </ul></li>
-  <li><a href="#instagram" id="toc-instagram" class="nav-link" data-scroll-target="#instagram"><span class="header-section-number">4</span> Instagram</a></li>
+  <li><a href="#instagram" id="toc-instagram" class="nav-link" data-scroll-target="#instagram"><span class="header-section-number">5</span> Instagram</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="main.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
@@ -153,6 +154,8 @@ window.Quarto = {
 </header>
 
 
+<section id="bibliotecas" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Bibliotecas</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
@@ -168,10 +171,11 @@ window.Quarto = {
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="qualidade-do-ar" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Qualidade do Ar</h1>
-<section id="estudo-sobre-a-base-de-dados" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="estudo-sobre-a-base-de-dados"><span class="header-section-number">1.1</span> Estudo sobre a base de dados</h2>
+</section>
+<section id="qualidade-do-ar" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Qualidade do Ar</h1>
+<section id="estudo-sobre-a-base-de-dados" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="estudo-sobre-a-base-de-dados"><span class="header-section-number">2.1</span> Estudo sobre a base de dados</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>airquality_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/airquality.csv"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(airquality_data)</span>
@@ -334,8 +338,8 @@ window.Quarto = {
 </div>
 </section>
 </section>
-<section id="qualidade-do-sono" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Qualidade do Sono</h1>
+<section id="qualidade-do-sono" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Qualidade do Sono</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sleep_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/sleep.csv"</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> New names<span class="sc">:</span></span>
@@ -449,10 +453,10 @@ window.Quarto = {
 <span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> <span class="fu">factr</span>(Dys)<span class="dv">9</span> <span class="sc">-</span><span class="fl">0.457</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span>  <span class="fl">0.500</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="metanalise" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Metanalise</h1>
-<section id="codigo-em-python-para-tratamento" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="codigo-em-python-para-tratamento"><span class="header-section-number">3.1</span> Codigo em python para tratamento</h2>
+<section id="metanalise" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Metanalise</h1>
+<section id="codigo-em-python-para-tratamento" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="codigo-em-python-para-tratamento"><span class="header-section-number">4.1</span> Codigo em python para tratamento</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>metanalise <span class="op">=</span> pd.read_csv(<span class="st">"data/metanalise.csv"</span>)</span>
@@ -521,8 +525,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="analise-dos-dados-no-r" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="analise-dos-dados-no-r"><span class="header-section-number">3.2</span> Analise dos dados no R</h2>
+<section id="analise-dos-dados-no-r" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="analise-dos-dados-no-r"><span class="header-section-number">4.2</span> Analise dos dados no R</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>metanalise <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"metanalise_mod.csv"</span>)</span>
@@ -655,8 +659,8 @@ window.Quarto = {
 </div>
 </section>
 </section>
-<section id="instagram" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Instagram</h1>
+<section id="instagram" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Instagram</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>instagram_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/instagram.csv"</span>)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a> <span class="sc">&gt;</span><span class="er">&gt;</span> Rows<span class="sc">:</span> <span class="dv">15</span> Columns<span class="sc">:</span> <span class="dv">18</span></span>
