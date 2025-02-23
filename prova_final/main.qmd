@@ -262,77 +262,103 @@ bptest(model_metanalise)
 
 
 # Instagram
+## tratamento com python do dataset do instagram
+```{python}
+import re
+import pandas as pd
 
-```{r}
-instagram_data <- read_csv("data/instagram.csv")
+def converter_tempo(tempo):
+    if isinstance(tempo, str):
+        tempo = tempo.replace(' ', '').lower()
+        if 'h' in tempo:
+            partes = tempo.split('h')
+            # Horas
+            horas = int(re.findall(r'\d+', partes[0])[0]) if re.findall(r'\d+', partes[0]) else 0
+            # Minutos
+            minutos_str = partes[1] if len(partes) > 1 else ''
+            minutos = int(re.findall(r'\d+', minutos_str)[0]) if re.findall(r'\d+', minutos_str) else 0
+            return horas * 60 + minutos
+        elif 'm' in tempo:
+            return int(re.findall(r'\d+', tempo)[0]) if re.findall(r'\d+', tempo) else 0
+        else:
+            try:
+                return float(tempo) * 60
+            except:
+                return 0
+    else:
+        return tempo
 
+df = pd.read_csv("data/instagram.csv")
 
-convert_to_hours <- function(time_str) {
-  time_str <- tolower(time_str)  # Converter para minúsculas
-  horas <- as.numeric(str_extract(time_str, "\\d+(?= h)"))  # Pegar as horas
-  minutos <- as.numeric(str_extract(time_str, "\\d+(?= min)"))  # Pegar os minutos
-  
-  # Substituir NA por 0 onde necessário
-  horas[is.na(horas)] <- 0
-  minutos[is.na(minutos)] <- 0
-  
-  # Converter para horas
-  total_horas <- horas + (minutos / 60)
-  return(total_horas)
-}
-
-
-dias_da_semana <- c("Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sabado", "Domingo")
-
-instagram_data_2 <- instagram_data %>%
-  mutate(across(all_of(dias_da_semana), convert_to_hours))
-
-
-
+dias = ['Segunda', 'Terca', 'Quarta', 'Quinta', 'Sexta', 'Sabado', 'Domingo']
+# Daqui pra baixo é so pra economizar processamento 
+# for dia in dias:
+#     df[dia] = df[dia].apply(converter_tempo)
+#
+# df['translado'] = df['translado'].apply(
+#     lambda x: converter_tempo(x) if isinstance(x, str) and re.search(r'\d', x) else 0
+# )
+#
+# df['genero'] = (
+#     df['genero']
+#     .str.strip()  # Remove espaços em branco extras
+#     .str.lower()
+#     .replace({
+#         'hétero': 'masculino',
+#         'm': 'masculino',
+#         'masculino': 'masculino',
+#         'feminino': 'feminino'
+#     })
+#     .str.capitalize()
+# )
+# df.to_csv("instagram_tratado.csv", index=False)
 ```
 
-
+## Analise dos dados do instagram com o R
 ```{r}
-glimpse(instagram_data_2)
-head(instagram_data_2)
-
+library(tidyverse)
+library(ggpubr)
+library(corrplot)
 ```
 
 ```{r}
-instagram_long <- instagram_data_2 %>%
-  pivot_longer(cols = c(Segunda:Domingo), names_to = "Dia", values_to = "Tempo")
+instagram_data <- read_csv("instagram_tratado.csv")
 
-# Criar histograma separado por dia
-ggplot(instagram_long, aes(x = Tempo, fill = Dia)) +
-  geom_histogram(bins = 10, color = "black", alpha = 0.7) +
-  facet_wrap(~ Dia) +  # Cria um gráfico separado para cada dia
-  labs(title = "Distribuição do Tempo de Uso do Instagram por Dia",
-       x = "Tempo (horas)", y = "Frequência") +
-  theme_minimal()
+glimpse(instagram_data)
 ```
 
-
 ```{r}
-# Transformar os dados para o formato longo
-instagram_long <- tidyr::pivot_longer(instagram_data_2, cols = all_of(dias_da_semana),
-                                      names_to = "Dia", values_to = "Tempo")
+dados <- instagram_data %>%
+  mutate(
+    tempo_total_semanal = Segunda + Terca + Quarta + Quinta + Sexta + Sabado + Domingo,
+    media_diaria = tempo_total_semanal / 7
+  )
 
-# Criar um boxplot para ver a distribuição do uso ao longo da semana
-ggplot(instagram_long, aes(x = Dia, y = Tempo, fill = Dia)) +
-  geom_boxplot() +
-  labs(title = "Tempo de Uso do Instagram por Dia da Semana",
-       x = "Dia da Semana", y = "Tempo (horas)") +
-  theme_minimal()
+# Sim = 1, Não = 0;
+dados <- dados %>%
+  mutate(across(c(trabalha, trabalhaInstagram, videosLongos, moraSo, streamingDiario), 
+                ~ if_else(. == "Sim", 1, 0)))
+
+# masculin = 1
+dados <- dados %>%
+  mutate(across(c(genero), 
+                ~ if_else(. == "Masculino", 1, 0)))
+
+dados <- dados %>%
+  mutate(idade = as.integer(idade))
+
+# Verificar as primeiras linhas
+glimpse(dados)
 ```
 
+```{r}
+modelo <- lm(media_diaria ~ idade + genero + videosLongos + streamingDiario + acesso, data = dados)
+
+summary(modelo)
+```
 
 ```{r}
-instagram_long %>%
-  group_by(Dia) %>%
-  summarise(Media_Tempo = mean(Tempo, na.rm = TRUE)) %>%
-  ggplot(aes(x = Dia, y = Media_Tempo, fill = Dia)) +
-  geom_bar(stat = "identity") +
-  labs(title = "Média do Tempo de Uso do Instagram por Dia",
-       x = "Dia da Semana", y = "Tempo médio (horas)") +
-  theme_minimal()
+```
+
+```{r}
 ```
