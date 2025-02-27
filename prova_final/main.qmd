@@ -83,7 +83,7 @@ pairs(airquality, main = "Gráfico de Relação entre Variáveis",
       lower.panel = panel.smooth, upper.panel = NULL)
 ```
 ```{r}
-#| panel: full
+#| panel: fill
 # Ajustar o tamanho do gráfico na célula do notebook
 options(repr.plot.width = 8, repr.plot.height = 8)
 
@@ -153,7 +153,7 @@ pairs(sleep_data, main = "Gráfico de Relação entre Variáveis",
 
 
 ```{r}
-#| panel: full
+#| panel: fill
 # Ajustar o tamanho do gráfico na célula do notebook
 options(repr.plot.width = 8, repr.plot.height = 8)
 
@@ -356,4 +356,5 @@ modelo <- lm(media_diaria ~ idade + genero + videosLongos + streamingDiario + ac
 
 summary(modelo)
 ```
+
 Como os p-valores mostraram que as várias não eram estatísticamente significantes e a qualidade das informações apresentadas eram ruim, O modelo não consegue se adequar aos dados
