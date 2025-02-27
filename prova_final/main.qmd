@@ -356,9 +356,4 @@ modelo <- lm(media_diaria ~ idade + genero + videosLongos + streamingDiario + ac
 
 summary(modelo)
 ```
-
-```{r}
-```
-
-```{r}
-```
+Como os p-valores mostraram que as várias não eram estatísticamente significantes e a qualidade das informações apresentadas eram ruim, O modelo não consegue se adequar aos dados
